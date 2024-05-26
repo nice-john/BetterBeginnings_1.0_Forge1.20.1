@@ -1,3 +1,4 @@
+// ModConfiguredFeatures.java
 package net.felixlotionstein.betterbeginnings.worldgen;
 
 import net.felixlotionstein.betterbeginnings.BetterBeginnings;
@@ -7,7 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.LevelAccessor;
@@ -15,32 +16,46 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+
+import java.util.List;
+
+import static net.minecraft.core.registries.Registries.CONFIGURED_FEATURE;
 
 public class ModConfiguredFeatures {
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, BetterBeginnings.MODID);
 
-    public static final RegistryObject<Feature<BlockStateConfiguration>> ROCK_FEATURE = FEATURES.register("rock_feature",
-            () -> new Feature<>(BlockStateConfiguration.CODEC) {
-                @Override
-                public boolean place(FeaturePlaceContext<BlockStateConfiguration> context) {
-                    BlockPos pos = context.origin();
-                    LevelAccessor world = context.level();
-                    if (world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) {
-                        return world.setBlock(pos, ModBlocks.ROCK_BLOCK.get().defaultBlockState(), 2);
-                    }
-                    return false;
-                }
-            });
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ROCK_BLOCK_KEY = ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(BetterBeginnings.MODID, "rock_block"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ROCK_BLOCK_KEY = registerKey("rock_block");
 
-    public static Holder.Reference<ConfiguredFeature<?, ?>> ROCK_CONFIGURED_FEATURE;
+    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+        register(context, ROCK_BLOCK_KEY, Feature.NO_BONEMEAL_FLOWER, new RandomPatchConfiguration(32, 3, 3, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.ROCK_BLOCK.get())))));
+    }
 
-    public static void registerConfiguredFeatures(BootstapContext<ConfiguredFeature<?, ?>> context) {
-        ROCK_CONFIGURED_FEATURE = context.register(ROCK_BLOCK_KEY, new ConfiguredFeature<>(ROCK_FEATURE.get(), new BlockStateConfiguration(ModBlocks.ROCK_BLOCK.get().defaultBlockState())));
+    public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
+        return ResourceKey.create(CONFIGURED_FEATURE, new ResourceLocation(BetterBeginnings.MODID, name));
+    }
+
+    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context,
+                                                                                          ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
+        context.register(key, new ConfiguredFeature<>(feature, configuration));
     }
 }

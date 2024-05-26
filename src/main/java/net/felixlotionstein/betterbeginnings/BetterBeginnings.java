@@ -52,7 +52,7 @@ public class BetterBeginnings
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModBlocks.register((modEventBus));
         ModItems.register(modEventBus);
-        ModConfiguredFeatures.FEATURES.register(modEventBus);
+        //ModConfiguredFeatures.FEATURES.register(modEventBus);
 
 
         // Register the commonSetup method for modloading
