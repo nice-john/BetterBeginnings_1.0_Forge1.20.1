@@ -3,6 +3,7 @@ package net.felixlotionstein.betterbeginnings;
 import com.mojang.logging.LogUtils;
 import net.felixlotionstein.betterbeginnings.block.ModBlocks;
 import net.felixlotionstein.betterbeginnings.item.ModItems;
+import net.felixlotionstein.betterbeginnings.worldgen.ModVegetationPlacement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTabs;
