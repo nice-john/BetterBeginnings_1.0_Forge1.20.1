@@ -55,7 +55,6 @@ public class BetterBeginnings
         ModItems.register(modEventBus);
         //ModConfiguredFeatures.FEATURES.register(modEventBus);
 
-
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
