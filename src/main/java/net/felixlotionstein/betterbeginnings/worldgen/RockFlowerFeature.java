@@ -14,7 +14,6 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.felixlotionstein.betterbeginnings.block.ModBlocks;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 
 public class RockFlowerFeature extends Feature<NoneFeatureConfiguration>
 {
@@ -24,7 +23,7 @@ public class RockFlowerFeature extends Feature<NoneFeatureConfiguration>
             .build()
     );
 
-    public RockFlowerFeature(Codec<SimpleBlockConfiguration> codec)
+    public RockFlowerFeature(Codec<NoneFeatureConfiguration> codec)
     {
         super(NoneFeatureConfiguration.CODEC);
     }

@@ -8,6 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -42,20 +43,13 @@ import java.util.List;
 import static net.minecraft.core.registries.Registries.CONFIGURED_FEATURE;
 
 public class ModConfiguredFeatures {
-
-
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ROCK_BLOCK_KEY = registerKey("rock_block");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ROCK_BLOCK_KEY = FeatureUtils.createKey("rock_block");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
-        register(context, ROCK_BLOCK_KEY, Feature.NO_BONEMEAL_FLOWER, new RandomPatchConfiguration(32, 3, 3, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.ROCK_BLOCK.get())))));
+        register(context, ROCK_BLOCK_KEY, ModFeatures.ROCK_FEATURE.get(), NoneFeatureConfiguration.INSTANCE);
     }
 
-    public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return ResourceKey.create(CONFIGURED_FEATURE, new ResourceLocation(BetterBeginnings.MODID, name));
-    }
-
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context,
-                                                                                          ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
-        context.register(key, new ConfiguredFeature<>(feature, configuration));
+    private static void register(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, Feature<NoneFeatureConfiguration> feature, NoneFeatureConfiguration configuration) {
+        FeatureUtils.register(context, key, feature, configuration);
     }
 }

@@ -41,22 +41,20 @@ import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 
 import java.util.List;
 
+import static net.felixlotionstein.betterbeginnings.worldgen.ModConfiguredFeatures.ROCK_BLOCK_KEY;
+
 public class ModPlacedFeatures {
-    public static final ResourceKey<PlacedFeature> ROCK_BLOCK_PLACED_KEY = registerKey("rock_block_placed");
+    public static final ResourceKey<PlacedFeature> ROCK_BLOCK_PLACED_KEY = PlacementUtils.createKey("rock_block_placed");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
-        HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
-
-        register(context, ROCK_BLOCK_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.ROCK_BLOCK_KEY),
-                ModVegetationPlacement.commonSurfacePlacement(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(256))));
+        register(context, ROCK_BLOCK_PLACED_KEY, ROCK_BLOCK_KEY, List.of(
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        ));
     }
 
-    private static ResourceKey<PlacedFeature> registerKey(String name) {
-        return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(BetterBeginnings.MODID, name));
-    }
-
-    private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,
-                                 List<PlacementModifier> modifiers) {
-        context.register(key, new PlacedFeature(configuration, List.copyOf(modifiers)));
+    private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> featureKey, List<PlacementModifier> placementModifiers) {
+        PlacementUtils.register(context, key, (Holder<ConfiguredFeature<?, ?>>) featureKey, placementModifiers);
     }
 }
