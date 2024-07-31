@@ -4,6 +4,7 @@ import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import net.felixlotionstein.betterbeginnings.block.ModBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -29,15 +30,16 @@ public class RockFlowerFeature extends Feature<NoneFeatureConfiguration> {
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        WorldGenLevel level = context.level();
-        BlockPos pos = context.origin();
-        BlockState stateAt = level.getBlockState(pos);
-        BlockState stateDown = level.getBlockState(pos.below());
-        if (stateAt.isAir() && (stateDown.is(Blocks.STONE) || stateDown.is(Blocks.GRAVEL))) {
-            level.setBlock(pos, ModBlocks.ROCK_BLOCK.get().defaultBlockState(), 3);
+        WorldGenLevel worldGenLevel = context.level();
+        BlockPos blockPos = context.origin();
+        BlockState blockState = ModBlocks.ROCK_BLOCK.get().defaultBlockState();
 
+        if (blockState.canSurvive(worldGenLevel, blockPos)) {
+            worldGenLevel.setBlock(blockPos, blockState, 3);
             return true;
         }
         return false;
     }
+
+
 }
