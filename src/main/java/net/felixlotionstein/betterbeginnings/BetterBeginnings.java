@@ -3,39 +3,20 @@ package net.felixlotionstein.betterbeginnings;
 import com.mojang.logging.LogUtils;
 import net.felixlotionstein.betterbeginnings.block.ModBlocks;
 import net.felixlotionstein.betterbeginnings.item.ModItems;
-import net.felixlotionstein.betterbeginnings.worldgen.ModVegetationPlacement;
+import net.felixlotionstein.betterbeginnings.worldgen.ModFeatures;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
-import net.felixlotionstein.betterbeginnings.block.ModBlocks;
-import net.felixlotionstein.betterbeginnings.item.ModItems;
-import net.felixlotionstein.betterbeginnings.worldgen.ModConfiguredFeatures;
-import net.felixlotionstein.betterbeginnings.worldgen.ModPlacedFeatures;
-import net.minecraft.core.Holder;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.level.*;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(BetterBeginnings.MODID)
@@ -48,23 +29,15 @@ public class BetterBeginnings
     // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
 
 
-    public BetterBeginnings()
-    {
+    public BetterBeginnings() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModBlocks.register((modEventBus));
-        ModItems.register(modEventBus);
-        //ModConfiguredFeatures.FEATURES.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModFeatures.register(modEventBus);
 
-        // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
-
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
-
-        // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
-
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
