@@ -2,28 +2,24 @@ package net.felixlotionstein.betterbeginnings.worldgen;
 
 import net.felixlotionstein.betterbeginnings.BetterBeginnings;
 import net.felixlotionstein.betterbeginnings.block.ModBlocks;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.BiomeFilter;
-import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import net.minecraft.world.level.levelgen.placement.RarityFilter;
-import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
+import net.minecraft.world.level.levelgen.placement.*;
+
 import java.util.List;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
 import net.felixlotionstein.betterbeginnings.BetterBeginnings;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -33,11 +29,11 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 
 import java.util.List;
 
@@ -50,6 +46,9 @@ public class ModPlacedFeatures {
         register(context, ROCK_BLOCK_PLACED_KEY, ROCK_BLOCK_KEY, List.of(
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BlockPredicateFilter.forPredicate(
+                        BlockPredicate.matchesBlocks(Vec3i.ZERO, Blocks.STONE) // Ensures rocks only spawn on stone
+                ),
                 BiomeFilter.biome()
         ));
     }

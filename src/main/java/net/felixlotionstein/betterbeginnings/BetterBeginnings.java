@@ -32,7 +32,9 @@ public class BetterBeginnings
     public BetterBeginnings() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModBlocks.register(modEventBus);
+        ModItems.register((modEventBus));
         ModFeatures.register(modEventBus);
+
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);

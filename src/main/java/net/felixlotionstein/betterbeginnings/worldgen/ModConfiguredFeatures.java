@@ -43,9 +43,23 @@ import java.util.List;
 import static net.minecraft.core.registries.Registries.CONFIGURED_FEATURE;
 
 public class ModConfiguredFeatures {
+    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+        register(context, ROCK_BLOCK_KEY, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.ROCK_BLOCK.get())));
+    }
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> ROCK_BLOCK_KEY = FeatureUtils.createKey("rock_block");
 
-    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
+        return ResourceKey.create(CONFIGURED_FEATURE, new ResourceLocation(BetterBeginnings.MODID, name));
+    }
+
+    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context,
+                                                                                          ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
+        context.register(key, new ConfiguredFeature<>(feature, configuration));
+    }
+}
+
+ /*   public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         register(context, ROCK_BLOCK_KEY, ModFeatures.ROCK_FEATURE.get(), NoneFeatureConfiguration.INSTANCE);
     }
 
@@ -53,3 +67,4 @@ public class ModConfiguredFeatures {
         FeatureUtils.register(context, key, feature, configuration);
     }
 }
+*/
