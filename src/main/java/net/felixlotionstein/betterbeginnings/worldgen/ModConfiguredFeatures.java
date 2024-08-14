@@ -43,11 +43,14 @@ import java.util.List;
 import static net.minecraft.core.registries.Registries.CONFIGURED_FEATURE;
 
 public class ModConfiguredFeatures {
-    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
-        register(context, ROCK_BLOCK_KEY, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.ROCK_BLOCK.get())));
-    }
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ROCK_BLOCK_KEY = FeatureUtils.createKey("rock_block");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ROCK_BLOCK_KEY = registerKey("rock_block");
+
+    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+        register(context, ROCK_BLOCK_KEY, Feature.FLOWER,
+                new RandomPatchConfiguration(32, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.ROCK_BLOCK.get())))));
+    }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return ResourceKey.create(CONFIGURED_FEATURE, new ResourceLocation(BetterBeginnings.MODID, name));

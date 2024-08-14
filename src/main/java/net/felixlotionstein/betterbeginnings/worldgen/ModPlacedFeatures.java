@@ -34,6 +34,7 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.felixlotionstein.betterbeginnings.worldgen.ModConfiguredFeatures;
 
 import java.util.List;
 
@@ -43,17 +44,20 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ROCK_BLOCK_PLACED_KEY = PlacementUtils.createKey("rock_block_placed");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
-        register(context, ROCK_BLOCK_PLACED_KEY, ROCK_BLOCK_KEY, List.of(
-                InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-                BlockPredicateFilter.forPredicate(
-                        BlockPredicate.matchesBlocks(Vec3i.ZERO, Blocks.STONE) // Ensures rocks only spawn on stone
-                ),
-                BiomeFilter.biome()
-        ));
+        HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
+
+        register(context, ROCK_BLOCK_PLACED_KEY, configuredFeatures.getOrThrow(ROCK_BLOCK_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(
+                        BlockPredicate.matchesBlocks(Vec3i.ZERO.below(), Blocks.STONE, Blocks.GRAVEL) // Ensures rocks only spawn on stone and gravel
+                )));
+
+    }
+    private static ResourceKey<PlacedFeature> registerKey(String name) {
+        return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(BetterBeginnings.MODID, name));
     }
 
-    private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> featureKey, List<PlacementModifier> placementModifiers) {
-        PlacementUtils.register(context, key, (Holder<ConfiguredFeature<?, ?>>) featureKey, placementModifiers);
+    private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,
+                                 List<PlacementModifier> modifiers) {
+        context.register(key, new PlacedFeature(configuration, List.copyOf(modifiers)));
     }
 }

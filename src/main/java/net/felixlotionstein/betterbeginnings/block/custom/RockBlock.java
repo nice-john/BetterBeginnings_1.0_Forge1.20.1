@@ -79,6 +79,10 @@ public class RockBlock extends Block {
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
+    //*@Override
+   // protected boolean mayPlaceOn(BlockState pState, BlockGetter plevel, BlockPos) {
+    //    return pState.is(Blocks.STONE);
+    //}
     @Override
     public BlockState rotate(BlockState state, Rotation rot) {
         return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
