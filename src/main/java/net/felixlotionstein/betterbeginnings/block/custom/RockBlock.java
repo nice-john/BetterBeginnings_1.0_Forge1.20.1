@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -94,9 +95,16 @@ public class RockBlock extends Block {
     }
 
     //rock can only spawn on rock
-    public boolean canSurvive(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        BlockState stateBelow = worldIn.getBlockState(pos.below());
-        return stateBelow.is(Blocks.STONE) || stateBelow.is(Blocks.GRAVEL);
+    //public boolean canSurvive(BlockState state, BlockGetter worldIn, BlockPos pos) {
+       // BlockState stateBelow = worldIn.getBlockState(pos.below());
+        //return stateBelow.is(Blocks.STONE) || stateBelow.is(Blocks.GRAVEL);
+   // }
+
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        // Check if the block below is STONE
+        BlockState blockBelow = world.getBlockState(pos.below());
+        return blockBelow.is(Blocks.GRASS_BLOCK) || blockBelow.is(Blocks.STONE) || blockBelow.is(Blocks.GRAVEL);
     }
 
 }

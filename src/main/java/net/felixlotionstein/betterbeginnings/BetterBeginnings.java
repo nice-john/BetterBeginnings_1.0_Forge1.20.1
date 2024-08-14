@@ -53,6 +53,9 @@ public class BetterBeginnings
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModBlocks.ROCK_BLOCK);
         }
+        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            event.accept(ModItems.STONE_HATCHET);
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

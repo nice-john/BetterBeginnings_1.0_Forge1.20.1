@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "I"
+  ],
+  "key": {
+    "S": {
+      "item": "betterbeginnings:rock_block"
+    },
+    "I": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "betterbeginnings:stone_hatchet",
+    "count": 1
+  }
+}
