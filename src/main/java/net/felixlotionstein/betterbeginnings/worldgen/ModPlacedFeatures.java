@@ -48,7 +48,7 @@ public class ModPlacedFeatures {
 
         register(context, ROCK_BLOCK_PLACED_KEY, configuredFeatures.getOrThrow(ROCK_BLOCK_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(
-                        BlockPredicate.matchesBlocks(Vec3i.ZERO.below(), Blocks.STONE, Blocks.GRAVEL) // Ensures rocks only spawn on stone and gravel
+                        BlockPredicate.matchesBlocks(Vec3i.ZERO.below(), Blocks.STONE, Blocks.GRAVEL, Blocks.WATER) // Ensures rocks only spawn on stone and gravel
                 )));
 
     }
