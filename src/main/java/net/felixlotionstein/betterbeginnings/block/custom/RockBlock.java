@@ -19,11 +19,11 @@ public class RockBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     // Define the base VoxelShape
-    private static final VoxelShape SHAPE_NORTH = Block.box(2, 0, 6, 8, 4, 12);
-    private static final VoxelShape SHAPE_EAST = rotateShape(Direction.NORTH, Direction.EAST, SHAPE_NORTH);
-    private static final VoxelShape SHAPE_SOUTH = rotateShape(Direction.NORTH, Direction.SOUTH, SHAPE_NORTH);
-    private static final VoxelShape SHAPE_WEST = rotateShape(Direction.NORTH, Direction.WEST, SHAPE_NORTH);
-
+    private static final VoxelShape SHAPE_NORTH = Block.box(4, 0, 2, 10, 4, 8);
+    private static final VoxelShape SHAPE_EAST = Block.box(4, 0, 2, 10, 4, 8);
+    private static final VoxelShape SHAPE_SOUTH = Block.box(2, 0, 6, 8, 4, 12);
+    private static final VoxelShape SHAPE_WEST = Block.box(6, 0, 8, 12, 4, 14);
+// old north: (8, 0, 4, 14, 4, 10);
     public RockBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
@@ -57,7 +57,7 @@ public class RockBlock extends Block {
     }
 
     // Helper method to rotate VoxelShapes
-    private static VoxelShape rotateShape(Direction from, Direction to, VoxelShape shape) {
+  /*  private static VoxelShape rotateShape(Direction from, Direction to, VoxelShape shape) {
         int rotations = (to.get2DDataValue() - from.get2DDataValue() + 4) % 4;
         VoxelShape[] buffer = new VoxelShape[] { shape, Shapes.empty() };
 
@@ -74,7 +74,7 @@ public class RockBlock extends Block {
 
         return buffer[0];
     }
-
+*/
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
