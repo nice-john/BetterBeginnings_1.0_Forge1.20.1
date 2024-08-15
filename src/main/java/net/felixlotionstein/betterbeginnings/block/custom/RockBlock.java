@@ -19,11 +19,17 @@ public class RockBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     // Define the VoxelShape for the block in each direction
-    private static final VoxelShape SHAPE_NORTH = Block.box(2, 0, 2, 14, 4, 14);
-    private static final VoxelShape SHAPE_EAST = Block.box(2, 0, 2, 14, 4, 14);
-    private static final VoxelShape SHAPE_SOUTH = Block.box(2, 0, 2, 14, 4, 14);
-    private static final VoxelShape SHAPE_WEST = Block.box(2, 0, 2, 14, 4, 14);
-
+    private static final VoxelShape SHAPE_NORTH = Block.box(8, 0, 4, 14, 4, 10);
+    private static final VoxelShape SHAPE_EAST = Block.box(4, 0, 2, 10, 4, 8);
+    private static final VoxelShape SHAPE_SOUTH = Block.box(2, 0, 6, 8, 4, 12);
+    private static final VoxelShape SHAPE_WEST = Block.box(6, 0, 8, 12, 4, 14);
+// goood north (8, 0, 4, 14, 4, 10);
+    /*
+        private static final VoxelShape SHAPE_NORTH = Block.box(8, 0, 4, 14, 4, 10);
+    private static final VoxelShape SHAPE_EAST = Block.box(4, 0, 2, 10, 4, 8);
+    private static final VoxelShape SHAPE_SOUTH = Block.box(2, 0, 6, 8, 4, 12);
+    private static final VoxelShape SHAPE_WEST = Block.box(6, 0, 8, 12, 4, 14);
+     */
     public RockBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
