@@ -47,10 +47,25 @@ public class ModPlacedFeatures {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
         register(context, ROCK_BLOCK_PLACED_KEY, configuredFeatures.getOrThrow(ROCK_BLOCK_KEY),
-                List.of(RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(
-                        BlockPredicate.matchesBlocks(Vec3i.ZERO.below(), Blocks.STONE, Blocks.GRAVEL, Blocks.WATER) // Ensures rocks only spawn on stone and gravel
-                )));
-
+                List.of(
+                        CountPlacement.of(10),
+                        InSquarePlacement.spread(),
+                        PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                        BiomeFilter.biome(),
+                        BlockPredicateFilter.forPredicate(
+                                BlockPredicate.anyOf(
+                                        // Check if any adjacent blocks are WATER or STONE
+                                        BlockPredicate.matchesBlocks(new Vec3i(1, -1, 0), Blocks.WATER), // EAST
+                                        BlockPredicate.matchesBlocks(new Vec3i(-1, -1, 0), Blocks.WATER), // WEST
+                                        BlockPredicate.matchesBlocks(new Vec3i(0, -1, 1), Blocks.WATER), // SOUTH
+                                        BlockPredicate.matchesBlocks(new Vec3i(0, -1, -1), Blocks.WATER), // NORTH
+                                        BlockPredicate.matchesBlocks(new Vec3i(2, 0, 0), Blocks.STONE), // EAST
+                                        BlockPredicate.matchesBlocks(new Vec3i(-2, 0, 0), Blocks.STONE), // WEST
+                                        BlockPredicate.matchesBlocks(new Vec3i(0, 0, 2), Blocks.STONE), // SOUTH
+                                        BlockPredicate.matchesBlocks(new Vec3i(0, 0, -2), Blocks.STONE) // NORTH
+                                )
+                        )
+                ));
     }
     private static ResourceKey<PlacedFeature> registerKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(BetterBeginnings.MODID, name));

@@ -80,6 +80,6 @@ public class RockBlock extends Block {
     @Override
     public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         BlockState blockBelow = world.getBlockState(pos.below());
-        return blockBelow.is(Blocks.GRASS_BLOCK) || blockBelow.is(Blocks.STONE) || blockBelow.is(Blocks.GRAVEL);
+        return blockBelow.is(Blocks.GRASS_BLOCK) || blockBelow.is(Blocks.STONE) || blockBelow.is(Blocks.GRAVEL) || blockBelow.is(Blocks.PACKED_ICE);
     }
 }

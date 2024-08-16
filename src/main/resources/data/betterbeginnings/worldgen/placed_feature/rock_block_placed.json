@@ -10,20 +10,113 @@
     },
     {
       "type": "minecraft:heightmap",
-      "heightmap": "WORLD_SURFACE"
+      "heightmap": "MOTION_BLOCKING"
     },
     {
       "type": "minecraft:block_predicate_filter",
       "predicate": {
-        "type": "minecraft:matching_blocks",
-        "offset": [
-          0,
-          -1,
-          0
-        ],
-        "blocks": [
-          "minecraft:stone",
-          "minecraft:gravel"
+        "type": "minecraft:any_of",
+        "predicates": [
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [
+              0,
+              -1,
+              0
+            ],
+            "blocks": [
+              "minecraft:stone",
+              "minecraft:gravel"
+            ]
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [
+              1,
+              -1,
+              0
+            ],
+            "blocks": [
+              "minecraft:water"
+            ]
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [
+              -1,
+              -1,
+              0
+            ],
+            "blocks": [
+              "minecraft:water"
+            ]
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [
+              0,
+              -1,
+              1
+            ],
+            "blocks": [
+              "minecraft:water"
+            ]
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [
+              0,
+              -1,
+              -1
+            ],
+            "blocks": [
+              "minecraft:water"
+            ]
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [
+              2,
+              0,
+              0
+            ],
+            "blocks": [
+              "minecraft:stone"
+            ]
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [
+              -2,
+              0,
+              0
+            ],
+            "blocks": [
+              "minecraft:stone"
+            ]
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [
+              0,
+              0,
+              2
+            ],
+            "blocks": [
+              "minecraft:stone"
+            ]
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "offset": [
+              0,
+              0,
+              -2
+            ],
+            "blocks": [
+              "minecraft:stone"
+            ]
+          }
         ]
       }
     },

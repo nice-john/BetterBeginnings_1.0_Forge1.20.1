@@ -48,7 +48,7 @@ public class ModConfiguredFeatures {
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         register(context, ROCK_BLOCK_KEY, Feature.FLOWER,
-                new RandomPatchConfiguration(48, 5, 11, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+                new RandomPatchConfiguration(64, 5, 11, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
                         new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.ROCK_BLOCK.get())))));
     }
 
