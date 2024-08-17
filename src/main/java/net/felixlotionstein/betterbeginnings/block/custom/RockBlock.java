@@ -11,30 +11,23 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.util.RandomSource;
 
-public class RockBlock extends Block {
+public class RockBlock extends HorizontalDirectionalBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     // Define the VoxelShape for the block in each direction
     private static final VoxelShape SHAPE_NORTH = Block.box(8, 0, 4, 14, 4, 10);
-    private static final VoxelShape SHAPE_EAST = Block.box(4, 0, 2, 10, 4, 8);
+    private static final VoxelShape SHAPE_EAST = Block.box(6, 0, 8, 12, 4, 14);
     private static final VoxelShape SHAPE_SOUTH = Block.box(2, 0, 6, 8, 4, 12);
-    private static final VoxelShape SHAPE_WEST = Block.box(6, 0, 8, 12, 4, 14);
-// goood north (8, 0, 4, 14, 4, 10);
-    /*
-        private static final VoxelShape SHAPE_NORTH = Block.box(8, 0, 4, 14, 4, 10);
-    private static final VoxelShape SHAPE_EAST = Block.box(4, 0, 2, 10, 4, 8);
-    private static final VoxelShape SHAPE_SOUTH = Block.box(2, 0, 6, 8, 4, 12);
-    private static final VoxelShape SHAPE_WEST = Block.box(6, 0, 8, 12, 4, 14);
-     */
+    private static final VoxelShape SHAPE_WEST = Block.box(4, 0, 2, 10, 4, 8);
+
     public RockBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
-
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
@@ -52,19 +45,18 @@ public class RockBlock extends Block {
         }
     }
 
+
     @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        // Randomize the facing direction when the block is placed by a player
+        RandomSource random = context.getLevel().random;
+        Direction randomDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+        return this.defaultBlockState().setValue(FACING, randomDirection);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override

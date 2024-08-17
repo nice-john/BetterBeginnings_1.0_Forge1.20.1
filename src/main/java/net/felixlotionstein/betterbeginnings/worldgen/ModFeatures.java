@@ -11,7 +11,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModFeatures {
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, BetterBeginnings.MODID);
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> ROCK_FEATURE = FEATURES.register("rock_block",
-            () -> new RockFlowerFeature(NoneFeatureConfiguration.CODEC));
+            () -> new RockFlowerFeature());
 
     public static void register(IEventBus eventBus) {
         FEATURES.register(eventBus);

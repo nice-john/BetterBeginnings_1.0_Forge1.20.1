@@ -77,7 +77,7 @@
             "type": "minecraft:matching_blocks",
             "offset": [
               2,
-              0,
+              -1,
               0
             ],
             "blocks": [
@@ -88,7 +88,7 @@
             "type": "minecraft:matching_blocks",
             "offset": [
               -2,
-              0,
+              -1,
               0
             ],
             "blocks": [
@@ -99,7 +99,7 @@
             "type": "minecraft:matching_blocks",
             "offset": [
               0,
-              0,
+              -1,
               2
             ],
             "blocks": [
@@ -110,7 +110,7 @@
             "type": "minecraft:matching_blocks",
             "offset": [
               0,
-              0,
+              -1,
               -2
             ],
             "blocks": [

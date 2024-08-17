@@ -1,13 +1,8 @@
 {
   "variants": {
-    "": [
-      { "model": "betterbeginnings:block/rock_block", "x": 0, "y": 0 }
-    ]
+    "facing=north": { "model": "betterbeginnings:block/rock_block" },
+    "facing=east": { "model": "betterbeginnings:block/rock_block", "y": 90 },
+    "facing=south": { "model": "betterbeginnings:block/rock_block", "y": 180 },
+    "facing=west": { "model": "betterbeginnings:block/rock_block", "y": 270 }
   }
 }
-
-xtra
-,
-{ "model": "betterbeginnings:block/rock_block", "x": 0, "y": 90 },
-{ "model": "betterbeginnings:block/rock_block", "x": 0, "y": 180 },
-{ "model": "betterbeginnings:block/rock_block", "x": 0, "y": 270 }

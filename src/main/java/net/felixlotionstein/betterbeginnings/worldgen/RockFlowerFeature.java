@@ -16,30 +16,41 @@ import java.util.Map;
 import java.util.function.Supplier;
 import com.google.common.collect.ImmutableMap;
 
-public class RockFlowerFeature extends Feature<NoneFeatureConfiguration> {
-    private static final Supplier<Map<Block, Supplier<? extends Block>>> ROCK_FLOWER_LOOKUP = Suppliers.memoize(() ->
-            new ImmutableMap.Builder<Block, Supplier<? extends Block>>()
-                    .put(Blocks.STONE, ModBlocks.ROCK_BLOCK)
-                    .put(Blocks.GRAVEL, ModBlocks.ROCK_BLOCK)
-                    .build()
-    );
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.WorldGenLevel;
 
-    public RockFlowerFeature(Codec<NoneFeatureConfiguration> codec) {
-        super(codec);
+public class RockFlowerFeature extends Feature<NoneFeatureConfiguration> {
+
+    public RockFlowerFeature() {
+        super(NoneFeatureConfiguration.CODEC);
     }
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        WorldGenLevel worldGenLevel = context.level();
-        BlockPos blockPos = context.origin();
-        BlockState blockState = ModBlocks.ROCK_BLOCK.get().defaultBlockState();
+        WorldGenLevel world = context.level();
+        BlockPos origin = context.origin();
+        RandomSource random = context.random();
 
-        if (blockState.canSurvive(worldGenLevel, blockPos)) {
-            worldGenLevel.setBlock(blockPos, blockState, 3);
+        // Determine how many blocks to place, placement logic, etc.
+        // For simplicity, place a single rock block with random rotation here:
+        BlockState rockBlockState = ModBlocks.ROCK_BLOCK.get().defaultBlockState()
+                .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random));
+
+        // Place the block at the origin or adjust the position as needed
+        if (world.isEmptyBlock(origin)) {
+            world.setBlock(origin, rockBlockState, 2);
             return true;
         }
         return false;
     }
-
-
 }
+
