@@ -2,8 +2,10 @@ package net.felixlotionstein.betterbeginnings;
 
 import net.felixlotionstein.betterbeginnings.item.ModItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -25,7 +27,7 @@ public class BetterBeginningsEvents {
         if (state.is(BlockTags.LOGS)) {
             // Check if the tool is not an axe or the custom stone hatchet
             if (!(tool.is(ItemTags.AXES) || tool.is(ModItems.STONE_HATCHET.get()))) {
-                event.setNewSpeed(0.2F); // Slow down the breaking speed if the tool is not an axe
+                event.setNewSpeed(0.1F); // Slow down the breaking speed if the tool is not an axe
             }
         }
     }
@@ -36,6 +38,7 @@ public class BetterBeginningsEvents {
         ItemStack tool = event.getPlayer().getMainHandItem();
         BlockPos pos = event.getPos();
         Level world = (Level) event.getLevel();
+        Player player = event.getPlayer(); // Get the player who triggered the event
 
         // Check if the block is a log
         if (state.is(BlockTags.LOGS)) {
@@ -44,6 +47,9 @@ public class BetterBeginningsEvents {
                 // Prevent drops by setting the block to air without triggering drops
                 world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                 event.setCanceled(true); // Cancel the event to prevent any other side effects
+
+                // Send a message to the player
+                player.sendSystemMessage(Component.literal("You need the right tool to get wood!"));
             }
         }
     }

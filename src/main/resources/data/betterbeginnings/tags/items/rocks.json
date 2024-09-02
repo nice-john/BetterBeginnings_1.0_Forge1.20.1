@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "betterbeginnings:rock_block",
+    "twigs:pebble",
+    "spelunkers_charm:basalt_rock",
+    "spelunkers_charm:rock",
+    "spelunkery:basalt_pebble",
+    "spelunkery:deepslate_pebble",
+    "botania:pebble",
+    "spelunkery:stone_pebble"
+  ]
+}
