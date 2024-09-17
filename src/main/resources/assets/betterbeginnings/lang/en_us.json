@@ -1,5 +1,10 @@
 {
   "item.betterbeginnings.rock": "Rock",
   "block.betterbeginnings.rock_block": "Rock",
-  "item.betterbeginnings.stone_hatchet": "Stone Hatchet"
+  "item.betterbeginnings.stone_hatchet": "Stone Hatchet",
+  "item.betterbeginnings.copper_axe": "Copper Axe",
+  "item.betterbeginnings.copper_pickaxe": "Copper Pickaxe",
+  "item.betterbeginnings.copper_shovel": "Copper Shovel",
+  "item.betterbeginnings.copper_sword": "Copper Sword",
+  "item.betterbeginnings.copper_hoe": "Copper Hoe"
 }

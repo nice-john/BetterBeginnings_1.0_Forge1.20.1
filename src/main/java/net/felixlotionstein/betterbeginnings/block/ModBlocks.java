@@ -22,7 +22,7 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, BetterBeginnings.MODID);
 
     public static final RegistryObject<Block> ROCK_BLOCK = registerBlock("rock_block",
-            () -> new RockBlock(BlockBehaviour.Properties.copy(Blocks.GRAVEL).noOcclusion().sound(SoundType.STONE)));
+            () -> new RockBlock(BlockBehaviour.Properties.copy(Blocks.GRAVEL).noOcclusion().sound(SoundType.STONE).instabreak()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

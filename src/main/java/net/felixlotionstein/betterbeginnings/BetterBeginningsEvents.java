@@ -32,7 +32,16 @@ public class BetterBeginningsEvents {
                 event.setNewSpeed(0.2F); // Slow down the breaking speed if the tool is not an axe
             }
         }
+        if (state.is(ModTags.Blocks.NEEDS_COPPER_TOOL)) {
+            // Check if the tool is not an axe or the custom stone hatchet
+            if (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE)) {
+                event.setNewSpeed(0.4F); // Slow down the breaking speed if the tool is not an axe
+
+            }
+        }
     }
+
+
 
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
@@ -64,6 +73,7 @@ public class BetterBeginningsEvents {
 
                 // Send a message to the player
                 player.sendSystemMessage(Component.literal("You need a copper tool to mine this!"));
+                player.sendSystemMessage(Component.literal("You can craft cobblestone using four rocks!"));
             }
         }
     }

@@ -55,6 +55,13 @@ public class BetterBeginnings
         }
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(ModItems.STONE_HATCHET);
+            event.accept(ModItems.COPPER_AXE);
+            event.accept(ModItems.COPPER_PICKAXE);
+            event.accept(ModItems.COPPER_SHOVEL);
+            event.accept(ModItems.COPPER_HOE);
+        }
+        if (event.getTabKey() == CreativeModeTabs.COMBAT) {
+            event.accept(ModItems.COPPER_SWORD);
         }
     }
 
