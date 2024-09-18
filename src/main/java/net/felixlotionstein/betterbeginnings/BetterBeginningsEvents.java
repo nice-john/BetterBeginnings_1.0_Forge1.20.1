@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -92,6 +93,16 @@ public class BetterBeginningsEvents {
 
                 // Send a message to the player
                 player.sendSystemMessage(Component.literal("You need an iron tool to mine this!"));
+            }
+        }
+        if (state.is(BlockTags.LEAVES)) {
+            // Check if the tool is not an axe or the custom stone hatchet
+            // Create a random count between 0 and 1
+            int count = world.random.nextInt(3); // Generates 0 or 1 or 2
+
+            if (count > 1) {
+                ItemStack drop = new ItemStack(Items.STICK, 1);
+                Block.popResource(world, pos, drop);
             }
         }
     }
