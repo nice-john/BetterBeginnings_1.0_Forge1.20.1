@@ -72,6 +72,6 @@ public class RockBlock extends HorizontalDirectionalBlock {
     @Override
     public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         BlockState blockBelow = world.getBlockState(pos.below());
-        return blockBelow.is(Blocks.GRASS_BLOCK) || blockBelow.is(Blocks.STONE) || blockBelow.is(Blocks.GRAVEL) || blockBelow.is(Blocks.PACKED_ICE);
+        return blockBelow.is(Blocks.GRASS_BLOCK) || blockBelow.is(Blocks.STONE) || blockBelow.is(Blocks.GRAVEL) || blockBelow.is(Blocks.PACKED_ICE) || blockBelow.is(Blocks.COBBLESTONE) || blockBelow.is(Blocks.PODZOL);
     }
 }

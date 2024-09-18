@@ -39,6 +39,13 @@ public class BetterBeginningsEvents {
 
             }
         }
+        if (state.is(Blocks.COAL_ORE)) {
+            // Check if the tool is not an axe or the custom stone hatchet
+            if (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE ) || tool.is(ModItems.COPPER_PICKAXE.get())) {
+                event.setNewSpeed(0.4F); // Slow down the breaking speed if the tool is not an axe
+
+            }
+        }
     }
 
 
@@ -74,6 +81,17 @@ public class BetterBeginningsEvents {
                 // Send a message to the player
                 player.sendSystemMessage(Component.literal("You need a copper tool to mine this!"));
                 player.sendSystemMessage(Component.literal("You can craft cobblestone using four rocks!"));
+            }
+        }
+        if (state.is(Blocks.COAL_ORE)) {
+            // Check if the tool is not an axe or the custom stone hatchet
+            if (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE ) || tool.is(ModItems.COPPER_PICKAXE.get())) {
+                // Prevent drops by setting the block to air without triggering drops
+                world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                event.setCanceled(true); // Cancel the event to prevent any other side effects
+
+                // Send a message to the player
+                player.sendSystemMessage(Component.literal("You need an iron tool to mine this!"));
             }
         }
     }
