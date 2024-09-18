@@ -72,7 +72,7 @@ public class BetterBeginningsEvents {
             }
         }
         // Check if the block is a log
-        if (state.is(ModTags.Blocks.NEEDS_COPPER_TOOL)) {
+        if (state.is(Blocks.STONE) || state.is(Blocks.IRON_ORE)) {
             // Check if the tool is not an axe or the custom stone hatchet
             if (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE)) {
                 // Prevent drops by setting the block to air without triggering drops
