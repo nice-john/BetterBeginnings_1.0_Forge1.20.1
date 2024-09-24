@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -29,7 +30,7 @@ public class BetterBeginningsEvents {
         // Check if the block is a log
         if (state.is(BlockTags.LOGS)) {
             // Check if the tool is not an axe or the custom stone hatchet
-            if (!(tool.is(ItemTags.AXES) || tool.is(ModItems.STONE_HATCHET.get()))) {
+            if (!(tool.getItem() instanceof AxeItem)) {
                 event.setNewSpeed(0.2F); // Slow down the breaking speed if the tool is not an axe
             }
         }
@@ -62,7 +63,7 @@ public class BetterBeginningsEvents {
         // Check if the block is a log
         if (state.is(BlockTags.LOGS)) {
             // Check if the tool is not an axe or the custom stone hatchet
-            if (!(tool.is(ItemTags.AXES) || tool.is(ModItems.STONE_HATCHET.get()))) {
+            if (!(tool.getItem() instanceof AxeItem)) {
                 // Prevent drops by setting the block to air without triggering drops
                 world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                 event.setCanceled(true); // Cancel the event to prevent any other side effects
