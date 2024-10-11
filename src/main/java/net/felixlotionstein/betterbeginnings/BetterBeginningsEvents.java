@@ -69,7 +69,9 @@ public class BetterBeginningsEvents {
                 event.setCanceled(true); // Cancel the event to prevent any other side effects
 
                 // Send a message to the player
-                player.sendSystemMessage(Component.literal("You need the right tool to get wood!"));
+                if (Config.SEND_MESSAGES.get()) {
+                    player.sendSystemMessage(Component.literal("You need the right tool to get wood!"));
+                }
             }
         }
         // Check if the block is a log
@@ -81,8 +83,10 @@ public class BetterBeginningsEvents {
                 event.setCanceled(true); // Cancel the event to prevent any other side effects
 
                 // Send a message to the player
-                player.sendSystemMessage(Component.literal("You need a copper tool to mine this!"));
-                player.sendSystemMessage(Component.literal("You can craft cobblestone using four rocks!"));
+                if (Config.SEND_MESSAGES.get()) {
+                    player.sendSystemMessage(Component.literal("You need a copper tool to mine this!"));
+                    player.sendSystemMessage(Component.literal("You can craft cobblestone using four rocks!"));
+                }
             }
         }
         if (state.is(Blocks.COAL_ORE)) {
@@ -93,7 +97,9 @@ public class BetterBeginningsEvents {
                 event.setCanceled(true); // Cancel the event to prevent any other side effects
 
                 // Send a message to the player
-                player.sendSystemMessage(Component.literal("You need an iron tool to mine this!"));
+                if (Config.SEND_MESSAGES.get()) {
+                    player.sendSystemMessage(Component.literal("You need an iron tool to mine this!"));
+                }
             }
         }
         if (state.is(BlockTags.LEAVES)) {
