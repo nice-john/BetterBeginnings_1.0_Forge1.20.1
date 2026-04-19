@@ -85,7 +85,6 @@ public class BetterBeginningsEvents {
                 // Send a message to the player
                 if (Config.SEND_MESSAGES.get()) {
                     player.sendSystemMessage(Component.literal("You need a copper tool to mine this!"));
-                    player.sendSystemMessage(Component.literal("You can craft cobblestone using four rocks!"));
                 }
             }
         }

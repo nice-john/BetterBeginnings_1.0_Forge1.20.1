@@ -36,6 +36,10 @@ public class ModItems {
     public static final RegistryObject<Item> COPPER_SWORD = ITEMS.register("copper_sword",
             () -> new SwordItem(ModToolTiers.COPPER, 3, -2.4F, new Item.Properties()));  // Changed 3F to 3
 
+    public static final RegistryObject<Item> FIRESTARTER = ITEMS.register("firestarter",
+            () -> new FlintAndSteelItem(new Item.Properties()
+                    .durability(1)));
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

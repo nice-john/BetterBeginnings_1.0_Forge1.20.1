@@ -61,6 +61,7 @@ public class BetterBeginnings
             event.accept(ModItems.COPPER_PICKAXE);
             event.accept(ModItems.COPPER_SHOVEL);
             event.accept(ModItems.COPPER_HOE);
+            event.accept(ModItems.FIRESTARTER);
         }
         if (event.getTabKey() == CreativeModeTabs.COMBAT) {
             event.accept(ModItems.COPPER_SWORD);
