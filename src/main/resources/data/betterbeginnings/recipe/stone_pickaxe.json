@@ -2,16 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "SSS",
-    "S S",
-    "SSS"
+    " I ",
+    " I "
   ],
   "key": {
     "S": {
       "item": "betterbeginnings:rock_block"
+    },
+    "I": {
+      "item": "minecraft:stick"
     }
   },
   "result": {
-    "item": "minecraft:furnace",
+    "id": "betterbeginnings:stone_pickaxe",
     "count": 1
   }
 }

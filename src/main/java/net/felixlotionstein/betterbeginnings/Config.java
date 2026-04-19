@@ -1,19 +1,17 @@
 package net.felixlotionstein.betterbeginnings;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class Config {
 
-    public static ForgeConfigSpec COMMON_CONFIG;
-    public static ForgeConfigSpec.BooleanValue SEND_MESSAGES;
+    public static ModConfigSpec COMMON_CONFIG;
+    public static ModConfigSpec.BooleanValue SEND_MESSAGES;
 
     static {
-        ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
+        ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
 
-        // Configuration category: Gameplay
         COMMON_BUILDER.comment("Gameplay settings").push("gameplay");
 
-        // Config for sending messages
         SEND_MESSAGES = COMMON_BUILDER
                 .comment("Set to false if you don't want the mod to send messages to the player.")
                 .define("sendMessages", true);
@@ -22,4 +20,3 @@ public class Config {
         COMMON_CONFIG = COMMON_BUILDER.build();
     }
 }
-

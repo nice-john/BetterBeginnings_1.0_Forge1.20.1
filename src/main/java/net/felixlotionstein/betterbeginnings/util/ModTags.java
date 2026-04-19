@@ -12,11 +12,11 @@ public class ModTags {
     public static class Items {
 
         private static TagKey<Item> tag(String name) {
-            return ItemTags.create(new ResourceLocation(BetterBeginnings.MODID, name));
+            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(BetterBeginnings.MODID, name));
         }
 
         private static TagKey<Item> forgeTag(String name) {
-            return ItemTags.create(new ResourceLocation("forge", name));
+            return ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", name));
         }
     }
 
@@ -25,11 +25,11 @@ public class ModTags {
 
 
         private static TagKey<Block> tag(String name) {
-            return BlockTags.create(new ResourceLocation(BetterBeginnings.MODID, name));
+            return BlockTags.create(ResourceLocation.fromNamespaceAndPath(BetterBeginnings.MODID, name));
         }
 
         private static TagKey<Block> forgeTag(String name) {
-            return BlockTags.create(new ResourceLocation("forge", name));
+            return BlockTags.create(ResourceLocation.fromNamespaceAndPath("forge", name));
         }
     }
 }

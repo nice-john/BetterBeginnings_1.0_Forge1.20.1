@@ -1,24 +1,29 @@
 package net.felixlotionstein.betterbeginnings.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-import net.minecraft.util.RandomSource;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class RockBlock extends HorizontalDirectionalBlock {
+    public static final MapCodec<RockBlock> CODEC = simpleCodec(RockBlock::new);
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    // Define the VoxelShape for the block in each direction
     private static final VoxelShape SHAPE_NORTH = Block.box(8, 0, 4, 14, 4, 10);
     private static final VoxelShape SHAPE_EAST = Block.box(6, 0, 8, 12, 4, 14);
     private static final VoxelShape SHAPE_SOUTH = Block.box(2, 0, 6, 8, 4, 12);
@@ -27,6 +32,11 @@ public class RockBlock extends HorizontalDirectionalBlock {
     public RockBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<RockBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -48,7 +58,6 @@ public class RockBlock extends HorizontalDirectionalBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        // Randomize the facing direction when the block is placed by a player
         RandomSource random = context.getLevel().random;
         Direction randomDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
         return this.defaultBlockState().setValue(FACING, randomDirection);

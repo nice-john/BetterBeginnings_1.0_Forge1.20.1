@@ -1,20 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " S ",
-    " S ",
-    " I "
+    "S",
+    "I"
   ],
   "key": {
     "S": {
-      "item": "minecraft:copper_ingot"
+      "item": "betterbeginnings:rock_block"
     },
     "I": {
       "item": "minecraft:stick"
     }
   },
   "result": {
-    "item": "betterbeginnings:copper_sword",
+    "id": "betterbeginnings:stone_hatchet",
     "count": 1
   }
 }
