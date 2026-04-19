@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" mv src/main/resources/data/betterbeginnings/tags/blocks src/main/resources/data/betterbeginnings/tags/block)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" mv src/main/resources/data/betterbeginnings/tags/items src/main/resources/data/betterbeginnings/tags/item)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" mv src/main/resources/data/minecraft/tags/blocks src/main/resources/data/minecraft/tags/block)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" mv src/main/resources/data/minecraft/tags/items src/main/resources/data/minecraft/tags/item)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" mv src/main/resources/data/quark/tags/blocks src/main/resources/data/quark/tags/block)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" mv src/main/resources/data/quark/tags/items src/main/resources/data/quark/tags/item)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" branch -m forge-1.21.1 neoforge-1.21.1)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" branch --show-current)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" mv src/main/resources/META-INF/mods.toml src/main/resources/META-INF/neoforge.mods.toml)",
+      "Read(//c/Program Files/Java/**)",
+      "Read(//c/Program Files/Amazon Corretto/**)",
+      "Read(//c/Program Files/**)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" stash push -u -m \"WIP neoforge-1.21.1 migration \\(contains local JDK path\\)\")",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" checkout master)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" checkout -b fabric-1.21.1)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" rm src/main/resources/META-INF/mods.toml)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" rm src/main/java/net/felixlotionstein/betterbeginnings/BetterBeginningsEvents.java)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" rm src/main/java/net/felixlotionstein/betterbeginnings/worldgen/ModBiomeModifiers.java src/main/java/net/felixlotionstein/betterbeginnings/worldgen/ModConfiguredFeatures.java src/main/java/net/felixlotionstein/betterbeginnings/worldgen/ModPlacedFeatures.java src/main/java/net/felixlotionstein/betterbeginnings/worldgen/ModFeatures.java src/main/java/net/felixlotionstein/betterbeginnings/worldgen/RockFlowerFeature.java)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" stash list)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" stash pop stash@{0})",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" checkout --theirs -- gradle.properties src/main/java/net/felixlotionstein/betterbeginnings/BetterBeginnings.java src/main/java/net/felixlotionstein/betterbeginnings/block/ModBlocks.java src/main/java/net/felixlotionstein/betterbeginnings/block/custom/RockBlock.java src/main/java/net/felixlotionstein/betterbeginnings/item/ModItems.java)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" rm src/main/java/net/felixlotionstein/betterbeginnings/BetterBeginningsEvents.java src/main/java/net/felixlotionstein/betterbeginnings/worldgen/ModConfiguredFeatures.java src/main/java/net/felixlotionstein/betterbeginnings/worldgen/ModFeatures.java src/main/java/net/felixlotionstein/betterbeginnings/worldgen/ModPlacedFeatures.java src/main/java/net/felixlotionstein/betterbeginnings/worldgen/RockFlowerFeature.java)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" add gradle.properties src/main/java/net/felixlotionstein/betterbeginnings/BetterBeginnings.java src/main/java/net/felixlotionstein/betterbeginnings/block/ModBlocks.java src/main/java/net/felixlotionstein/betterbeginnings/block/custom/RockBlock.java src/main/java/net/felixlotionstein/betterbeginnings/item/ModItems.java)",
+      "Bash(\"C:/Program Files/Git/cmd/git.exe\" status --short)",
+      "Bash(\"C:/Program Files/Git/bin/git.exe\" status)",
+      "Bash(\"C:/Program Files/Git/bin/git.exe\" log --oneline -5)",
+      "Bash(\"C:/Program Files/Git/bin/git.exe\" restore --staged .claude/settings.local.json)",
+      "Bash('C:/Program Files/Git/bin/git.exe' commit -m ' *)",
+      "Bash(\"C:/Program Files/Git/bin/git.exe\" checkout -b fabric-1.20.1)",
+      "Bash(\"C:/Program Files/Git/bin/git.exe\" branch --show-current)",
+      "Bash(\"C:/Program Files/Git/bin/git.exe\" status --short)",
+      "Bash(\"C:/Program Files/Git/bin/git.exe\" add -u)",
+      "Bash(\"C:/Program Files/Git/bin/git.exe\" commit -F .git/COMMIT_MSG_TMP)",
+      "Bash(\"C:/Program Files/Git/bin/git.exe\" log --oneline -3)"
+    ]
+  }
+}
