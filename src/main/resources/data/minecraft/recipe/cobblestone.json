@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "SSS",
-    "S S",
-    "SSS"
+    "SS",
+    "SS"
   ],
   "key": {
     "S": {
@@ -11,7 +10,7 @@
     }
   },
   "result": {
-    "item": "minecraft:furnace",
+    "id": "minecraft:cobblestone",
     "count": 1
   }
 }

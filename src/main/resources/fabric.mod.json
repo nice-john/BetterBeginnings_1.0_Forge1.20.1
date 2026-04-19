@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "betterbeginnings",
+  "version": "${version}",
+  "name": "Better Beginnings",
+  "description": "Punching trees is silly",
+  "authors": ["Felix Lotionstein"],
+  "contact": {},
+  "license": "GPL-3.0-or-later",
+  "icon": "assets/betterbeginnings/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["net.felixlotionstein.betterbeginnings.BetterBeginnings"],
+    "client": ["net.felixlotionstein.betterbeginnings.client.BetterBeginningsClient"]
+  },
+  "mixins": [
+    "betterbeginnings.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

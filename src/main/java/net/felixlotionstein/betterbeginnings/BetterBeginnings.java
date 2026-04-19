@@ -1,101 +1,105 @@
 package net.felixlotionstein.betterbeginnings;
 
 import com.mojang.logging.LogUtils;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.felixlotionstein.betterbeginnings.block.ModBlocks;
 import net.felixlotionstein.betterbeginnings.item.ModItems;
-import net.felixlotionstein.betterbeginnings.worldgen.ModFeatures;
-import net.minecraft.client.Minecraft;
+import net.felixlotionstein.betterbeginnings.worldgen.ModBiomeModifications;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
-@Mod(BetterBeginnings.MODID)
-public class BetterBeginnings
-{
-    // Define mod id in a common place for everything to reference
+public class BetterBeginnings implements ModInitializer {
     public static final String MODID = "betterbeginnings";
-    // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
+    public static final Logger LOGGER = LogUtils.getLogger();
 
+    @Override
+    public void onInitialize() {
+        ModBlocks.register();
+        ModItems.register();
+        ModBiomeModifications.register();
 
-    public BetterBeginnings() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModBlocks.register(modEventBus);
-        ModItems.register((modEventBus));
-        ModFeatures.register(modEventBus);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
+        registerCreativeTabAdditions();
+        registerBlockBreakHandler();
+        registerLeafLootModification();
 
-        modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::addCreative);
-
-        MinecraftForge.EVENT_BUS.register(this);
+        LOGGER.info("Better Beginnings initialized");
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event)
-    {
-
+    private void registerCreativeTabAdditions() {
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(entries ->
+                entries.accept(ModBlocks.ROCK_BLOCK));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
+            entries.accept(ModItems.STONE_HATCHET);
+            entries.accept(ModItems.COPPER_AXE);
+            entries.accept(ModItems.COPPER_PICKAXE);
+            entries.accept(ModItems.COPPER_SHOVEL);
+            entries.accept(ModItems.COPPER_HOE);
+            entries.accept(ModItems.FIRESTARTER);
+        });
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries ->
+                entries.accept(ModItems.COPPER_SWORD));
     }
 
-    // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event)
-    {
-        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModBlocks.ROCK_BLOCK);
-        }
-        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.STONE_HATCHET);
-            event.accept(ModItems.COPPER_AXE);
-            event.accept(ModItems.COPPER_PICKAXE);
-            event.accept(ModItems.COPPER_SHOVEL);
-            event.accept(ModItems.COPPER_HOE);
-            event.accept(ModItems.FIRESTARTER);
-        }
-        if (event.getTabKey() == CreativeModeTabs.COMBAT) {
-            event.accept(ModItems.COPPER_SWORD);
-        }
+    private void registerLeafLootModification() {
+        LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
+            if (!source.isBuiltin()) return;
+            ResourceLocation id = key.location();
+            if (id.getNamespace().equals("minecraft")
+                    && id.getPath().startsWith("blocks/")
+                    && id.getPath().endsWith("_leaves")) {
+                tableBuilder.withPool(
+                    LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(Items.STICK))
+                        .when(LootItemRandomChanceCondition.randomChance(0.33f))
+                        .build()
+                );
+            }
+        });
     }
 
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event)
-    {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
-    }
-    {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+    private void registerBlockBreakHandler() {
+        PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {
+            ItemStack tool = player.getMainHandItem();
 
-        // Register the event handler
-        MinecraftForge.EVENT_BUS.register(new BetterBeginningsEvents());
-    }
-
-    private void setup(final FMLCommonSetupEvent event) {
-        // Some preinit code
-    }
-
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents
-    {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
-            // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
-        }
+            if (state.is(BlockTags.LOGS) && !(tool.getItem() instanceof AxeItem)) {
+                world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                if (Config.SEND_MESSAGES) {
+                    player.sendSystemMessage(Component.literal("You need the right tool to get wood!"));
+                }
+                return false;
+            }
+            if ((state.is(Blocks.STONE) || state.is(Blocks.IRON_ORE))
+                    && (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE))) {
+                world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                if (Config.SEND_MESSAGES) {
+                    player.sendSystemMessage(Component.literal("You need a copper tool to mine this!"));
+                }
+                return false;
+            }
+            if (state.is(Blocks.COAL_ORE)
+                    && (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE) || tool.is(ModItems.COPPER_PICKAXE))) {
+                world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                if (Config.SEND_MESSAGES) {
+                    player.sendSystemMessage(Component.literal("You need an iron tool to mine this!"));
+                }
+                return false;
+            }
+            return true;
+        });
     }
 }

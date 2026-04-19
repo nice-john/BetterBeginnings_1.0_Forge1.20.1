@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "net.felixlotionstein.betterbeginnings.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "PlayerDestroySpeedMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

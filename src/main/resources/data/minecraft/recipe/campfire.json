@@ -1,20 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "S",
-    "S",
-    "I"
+    "RSR",
+    "SLS",
+    "RSR"
   ],
   "key": {
-    "S": {
+    "R": {
       "item": "betterbeginnings:rock_block"
     },
-    "I": {
+    "S": {
       "item": "minecraft:stick"
+    },
+    "L": {
+      "tag": "minecraft:logs"
     }
   },
   "result": {
-    "item": "minecraft:stone_sword",
+    "id": "minecraft:campfire",
     "count": 1
   }
 }
