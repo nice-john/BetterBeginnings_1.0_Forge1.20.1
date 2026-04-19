@@ -1,6 +1,5 @@
 package net.felixlotionstein.betterbeginnings.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -21,7 +20,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class RockBlock extends HorizontalDirectionalBlock {
-    public static final MapCodec<RockBlock> CODEC = simpleCodec(RockBlock::new);
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     private static final VoxelShape SHAPE_NORTH = Block.box(8, 0, 4, 14, 4, 10);
@@ -32,11 +30,6 @@ public class RockBlock extends HorizontalDirectionalBlock {
     public RockBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
-    }
-
-    @Override
-    protected MapCodec<RockBlock> codec() {
-        return CODEC;
     }
 
     @Override

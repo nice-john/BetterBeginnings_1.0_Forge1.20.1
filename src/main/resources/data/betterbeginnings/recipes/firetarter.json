@@ -1,20 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "SSS",
-    " I ",
-    " I "
+    "S ",
+    " S"
   ],
   "key": {
     "S": {
-      "item": "minecraft:copper_ingot"
-    },
-    "I": {
       "item": "minecraft:stick"
     }
   },
   "result": {
-    "id": "betterbeginnings:copper_pickaxe",
+    "item": "betterbeginnings:firestarter",
     "count": 1
   }
 }

@@ -14,23 +14,17 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 
 public class ModItems {
-    public static final Item STONE_HATCHET = new AxeItem(Tiers.WOOD,
-            new Item.Properties().attributes(AxeItem.createAttributes(Tiers.WOOD, 3.0F, -2.2F)));
+    public static final Item STONE_HATCHET = new AxeItem(Tiers.WOOD, 3.0F, -2.2F, new Item.Properties()) {};
 
-    public static final Item COPPER_AXE = new AxeItem(ModToolTiers.COPPER,
-            new Item.Properties().attributes(AxeItem.createAttributes(ModToolTiers.COPPER, 4.5F, -2.9F)));
+    public static final Item COPPER_AXE = new AxeItem(ModToolTiers.COPPER, 4.5F, -2.9F, new Item.Properties()) {};
 
-    public static final Item COPPER_PICKAXE = new PickaxeItem(ModToolTiers.COPPER,
-            new Item.Properties().attributes(PickaxeItem.createAttributes(ModToolTiers.COPPER, 1, -2.8F)));
+    public static final Item COPPER_PICKAXE = new PickaxeItem(ModToolTiers.COPPER, 1, -2.8F, new Item.Properties()) {};
 
-    public static final Item COPPER_HOE = new HoeItem(ModToolTiers.COPPER,
-            new Item.Properties().attributes(HoeItem.createAttributes(ModToolTiers.COPPER, -2, -1.5F)));
+    public static final Item COPPER_HOE = new HoeItem(ModToolTiers.COPPER, -2, -1.5F, new Item.Properties());
 
-    public static final Item COPPER_SHOVEL = new ShovelItem(ModToolTiers.COPPER,
-            new Item.Properties().attributes(ShovelItem.createAttributes(ModToolTiers.COPPER, 1.5F, -3.0F)));
+    public static final Item COPPER_SHOVEL = new ShovelItem(ModToolTiers.COPPER, 1.5F, -3.0F, new Item.Properties());
 
-    public static final Item COPPER_SWORD = new SwordItem(ModToolTiers.COPPER,
-            new Item.Properties().attributes(SwordItem.createAttributes(ModToolTiers.COPPER, 3, -2.4F)));
+    public static final Item COPPER_SWORD = new SwordItem(ModToolTiers.COPPER, 3, -2.4F, new Item.Properties());
 
     public static final Item FIRESTARTER = new FlintAndSteelItem(new Item.Properties().durability(1));
 
@@ -46,6 +40,6 @@ public class ModItems {
 
     private static void reg(String name, Item item) {
         Registry.register(BuiltInRegistries.ITEM,
-                ResourceLocation.fromNamespaceAndPath(BetterBeginnings.MODID, name), item);
+                new ResourceLocation(BetterBeginnings.MODID, name), item);
     }
 }

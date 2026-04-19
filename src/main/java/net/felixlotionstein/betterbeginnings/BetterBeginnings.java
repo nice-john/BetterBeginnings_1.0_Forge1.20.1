@@ -4,12 +4,11 @@ import com.mojang.logging.LogUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.felixlotionstein.betterbeginnings.block.ModBlocks;
 import net.felixlotionstein.betterbeginnings.item.ModItems;
 import net.felixlotionstein.betterbeginnings.worldgen.ModBiomeModifications;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -55,9 +54,8 @@ public class BetterBeginnings implements ModInitializer {
     }
 
     private void registerLeafLootModification() {
-        LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
+        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (!source.isBuiltin()) return;
-            ResourceLocation id = key.location();
             if (id.getNamespace().equals("minecraft")
                     && id.getPath().startsWith("blocks/")
                     && id.getPath().endsWith("_leaves")) {
@@ -66,7 +64,6 @@ public class BetterBeginnings implements ModInitializer {
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(Items.STICK))
                         .when(LootItemRandomChanceCondition.randomChance(0.33f))
-                        .build()
                 );
             }
         });

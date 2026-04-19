@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Block;
 public class ModTags {
     public static class Items {
         private static TagKey<Item> tag(String name) {
-            return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(BetterBeginnings.MODID, name));
+            return TagKey.create(Registries.ITEM, new ResourceLocation(BetterBeginnings.MODID, name));
         }
     }
 
@@ -18,7 +18,7 @@ public class ModTags {
         public static final TagKey<Block> NEEDS_COPPER_TOOL = tag("needs_copper_tool");
 
         private static TagKey<Block> tag(String name) {
-            return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(BetterBeginnings.MODID, name));
+            return TagKey.create(Registries.BLOCK, new ResourceLocation(BetterBeginnings.MODID, name));
         }
     }
 }

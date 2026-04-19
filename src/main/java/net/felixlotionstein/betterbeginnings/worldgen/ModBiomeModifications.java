@@ -13,7 +13,7 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 public class ModBiomeModifications {
     private static final ResourceKey<PlacedFeature> ROCK_BLOCK_PLACED = ResourceKey.create(
             Registries.PLACED_FEATURE,
-            ResourceLocation.fromNamespaceAndPath(BetterBeginnings.MODID, "rock_block_placed"));
+            new ResourceLocation(BetterBeginnings.MODID, "rock_block_placed"));
 
     public static void register() {
         BiomeModifications.addFeature(

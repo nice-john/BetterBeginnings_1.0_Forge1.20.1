@@ -1,8 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " S ",
-    " S ",
+    "SSS",
+    " I ",
     " I "
   ],
   "key": {
@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "id": "betterbeginnings:copper_sword",
+    "item": "betterbeginnings:copper_pickaxe",
     "count": 1
   }
 }
