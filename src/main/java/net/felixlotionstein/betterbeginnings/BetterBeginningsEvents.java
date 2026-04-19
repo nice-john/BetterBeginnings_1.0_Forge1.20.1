@@ -57,7 +57,7 @@ public class BetterBeginningsEvents {
                 event.setCanceled(true);
 
                 if (Config.SEND_MESSAGES.get()) {
-                    player.sendSystemMessage(Component.literal("You need the right tool to get wood!"));
+                    player.sendSystemMessage(Component.literal("You need at least a stone hatchet to chop wood!"));
                 }
             }
         }
