@@ -66,7 +66,6 @@ public class BetterBeginnings implements ModInitializer {
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(Items.STICK))
                         .when(LootItemRandomChanceCondition.randomChance(0.33f))
-                        .build()
                 );
             }
         });
@@ -79,7 +78,7 @@ public class BetterBeginnings implements ModInitializer {
             if (state.is(BlockTags.LOGS) && !(tool.getItem() instanceof AxeItem)) {
                 world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                 if (Config.SEND_MESSAGES) {
-                    player.sendSystemMessage(Component.literal("You need the right tool to get wood!"));
+                    player.sendSystemMessage(Component.literal("You need at least a stone hatchet to chop wood!"));
                 }
                 return false;
             }
