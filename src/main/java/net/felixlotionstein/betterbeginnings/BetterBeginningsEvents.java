@@ -70,7 +70,7 @@ public class BetterBeginningsEvents {
 
                 // Send a message to the player
                 if (Config.SEND_MESSAGES.get()) {
-                    player.sendSystemMessage(Component.literal("You need the right tool to get wood!"));
+                    player.sendSystemMessage(Component.literal("You need at least a stone hatchet to get wood!"));
                 }
             }
         }
