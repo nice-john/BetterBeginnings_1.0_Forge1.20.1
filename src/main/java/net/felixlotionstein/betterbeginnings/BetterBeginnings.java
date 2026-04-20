@@ -76,7 +76,7 @@ public class BetterBeginnings implements ModInitializer {
             if (state.is(BlockTags.LOGS) && !(tool.getItem() instanceof AxeItem)) {
                 world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                 if (Config.SEND_MESSAGES) {
-                    player.sendSystemMessage(Component.literal("You need the right tool to get wood!"));
+                    player.sendSystemMessage(Component.literal("You need at least a stone hatchet to get wood!"));
                 }
                 return false;
             }
