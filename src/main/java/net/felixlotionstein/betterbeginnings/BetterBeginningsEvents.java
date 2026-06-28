@@ -27,18 +27,15 @@ public class BetterBeginningsEvents {
         BlockState state = event.getState();
         ItemStack tool = event.getEntity().getMainHandItem();
 
-        // Check if the block is a log
         if (state.is(BlockTags.LOGS)) {
-            // Check if the tool is not an axe or the custom stone hatchet
-            if (!(tool.getItem() instanceof AxeItem)) {
-                event.setNewSpeed(0.2F); // Slow down the breaking speed if the tool is not an axe
+            // Wooden axes are AxeItem but should not be allowed — require at least stone hatchet
+            if (!(tool.getItem() instanceof AxeItem) || tool.is(Items.WOODEN_AXE)) {
+                event.setNewSpeed(0.2F);
             }
         }
-        if (state.is(ModTags.Blocks.NEEDS_COPPER_TOOL) || state.is(Blocks.STONE)) {
-            // Check if the tool is not an axe or the custom stone hatchet
+        if (state.is(ModTags.Blocks.NEEDS_COPPER_TOOL) || state.is(BlockTags.BASE_STONE_OVERWORLD)) {
             if (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE)) {
-                event.setNewSpeed(0.4F); // Slow down the breaking speed if the tool is not an axe
-
+                event.setNewSpeed(0.4F);
             }
         }
         if (state.is(Blocks.COAL_ORE)) {
@@ -60,29 +57,20 @@ public class BetterBeginningsEvents {
         Level world = (Level) event.getLevel();
         Player player = event.getPlayer(); // Get the player who triggered the event
 
-        // Check if the block is a log
         if (state.is(BlockTags.LOGS)) {
-            // Check if the tool is not an axe or the custom stone hatchet
-            if (!(tool.getItem() instanceof AxeItem)) {
-                // Prevent drops by setting the block to air without triggering drops
+            // Wooden axes are AxeItem but should not be allowed — require at least stone hatchet
+            if (!(tool.getItem() instanceof AxeItem) || tool.is(Items.WOODEN_AXE)) {
                 world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                event.setCanceled(true); // Cancel the event to prevent any other side effects
-
-                // Send a message to the player
+                event.setCanceled(true);
                 if (Config.SEND_MESSAGES.get()) {
                     player.sendSystemMessage(Component.literal("You need at least a stone hatchet to get wood!"));
                 }
             }
         }
-        // Check if the block is a log
-        if (state.is(Blocks.STONE) || state.is(Blocks.IRON_ORE)) {
-            // Check if the tool is not an axe or the custom stone hatchet
+        if (state.is(BlockTags.BASE_STONE_OVERWORLD) || state.is(Blocks.IRON_ORE)) {
             if (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE)) {
-                // Prevent drops by setting the block to air without triggering drops
                 world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                event.setCanceled(true); // Cancel the event to prevent any other side effects
-
-                // Send a message to the player
+                event.setCanceled(true);
                 if (Config.SEND_MESSAGES.get()) {
                     player.sendSystemMessage(Component.literal("You need a copper tool to mine this!"));
                 }
