@@ -22,11 +22,12 @@ public abstract class PlayerDestroySpeedMixin {
         Player self = (Player) (Object) this;
         ItemStack tool = self.getMainHandItem();
 
-        if (state.is(BlockTags.LOGS) && !(tool.getItem() instanceof AxeItem)) {
+        // Wooden axes are AxeItem but should not be allowed — require at least stone hatchet
+        if (state.is(BlockTags.LOGS) && (!(tool.getItem() instanceof AxeItem) || tool.is(Items.WOODEN_AXE))) {
             cir.setReturnValue(0.5F);
             return;
         }
-        if ((state.is(ModTags.Blocks.NEEDS_COPPER_TOOL) || state.is(Blocks.STONE))
+        if ((state.is(ModTags.Blocks.NEEDS_COPPER_TOOL) || state.is(BlockTags.BASE_STONE_OVERWORLD))
                 && (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE))) {
             cir.setReturnValue(0.5F);
             return;

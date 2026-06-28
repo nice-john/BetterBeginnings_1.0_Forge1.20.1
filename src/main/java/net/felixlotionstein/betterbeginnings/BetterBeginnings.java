@@ -73,14 +73,15 @@ public class BetterBeginnings implements ModInitializer {
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {
             ItemStack tool = player.getMainHandItem();
 
-            if (state.is(BlockTags.LOGS) && !(tool.getItem() instanceof AxeItem)) {
+            // Wooden axes are AxeItem but should not be allowed — require at least stone hatchet
+            if (state.is(BlockTags.LOGS) && (!(tool.getItem() instanceof AxeItem) || tool.is(Items.WOODEN_AXE))) {
                 world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                 if (Config.SEND_MESSAGES) {
                     player.sendSystemMessage(Component.literal("You need at least a stone hatchet to get wood!"));
                 }
                 return false;
             }
-            if ((state.is(Blocks.STONE) || state.is(Blocks.IRON_ORE))
+            if ((state.is(BlockTags.BASE_STONE_OVERWORLD) || state.is(Blocks.IRON_ORE))
                     && (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE))) {
                 world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                 if (Config.SEND_MESSAGES) {
