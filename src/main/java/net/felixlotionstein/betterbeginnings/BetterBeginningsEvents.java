@@ -27,11 +27,12 @@ public class BetterBeginningsEvents {
         ItemStack tool = event.getEntity().getMainHandItem();
 
         if (state.is(BlockTags.LOGS)) {
-            if (!(tool.getItem() instanceof AxeItem)) {
+            // Wooden axes are AxeItem but should not be allowed — require at least stone hatchet
+            if (!(tool.getItem() instanceof AxeItem) || tool.is(Items.WOODEN_AXE)) {
                 event.setNewSpeed(0.2F);
             }
         }
-        if (state.is(ModTags.Blocks.NEEDS_COPPER_TOOL) || state.is(Blocks.STONE)) {
+        if (state.is(ModTags.Blocks.NEEDS_COPPER_TOOL) || state.is(BlockTags.BASE_STONE_OVERWORLD)) {
             if (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE)) {
                 event.setNewSpeed(0.4F);
             }
@@ -52,7 +53,8 @@ public class BetterBeginningsEvents {
         Player player = event.getPlayer();
 
         if (state.is(BlockTags.LOGS)) {
-            if (!(tool.getItem() instanceof AxeItem)) {
+            // Wooden axes are AxeItem but should not be allowed — require at least stone hatchet
+            if (!(tool.getItem() instanceof AxeItem) || tool.is(Items.WOODEN_AXE)) {
                 world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                 event.setCanceled(true);
 
@@ -61,7 +63,7 @@ public class BetterBeginningsEvents {
                 }
             }
         }
-        if (state.is(Blocks.STONE) || state.is(Blocks.IRON_ORE)) {
+        if (state.is(BlockTags.BASE_STONE_OVERWORLD) || state.is(Blocks.IRON_ORE)) {
             if (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE)) {
                 world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                 event.setCanceled(true);
