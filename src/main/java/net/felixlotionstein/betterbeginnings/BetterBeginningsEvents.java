@@ -57,7 +57,7 @@ public class BetterBeginningsEvents {
                 event.setCanceled(true);
 
                 if (Config.SEND_MESSAGES.get()) {
-                    player.sendSystemMessage(Component.literal("You need at least a stone hatchet to chop wood!"));
+                    player.sendSystemMessage(Component.translatable("message.betterbeginnings.need_hatchet"));
                 }
             }
         }
@@ -67,7 +67,7 @@ public class BetterBeginningsEvents {
                 event.setCanceled(true);
 
                 if (Config.SEND_MESSAGES.get()) {
-                    player.sendSystemMessage(Component.literal("You need a copper tool to mine this!"));
+                    player.sendSystemMessage(Component.translatable("message.betterbeginnings.need_copper_tool"));
                 }
             }
         }
@@ -77,7 +77,7 @@ public class BetterBeginningsEvents {
                 event.setCanceled(true);
 
                 if (Config.SEND_MESSAGES.get()) {
-                    player.sendSystemMessage(Component.literal("You need an iron tool to mine this!"));
+                    player.sendSystemMessage(Component.translatable("message.betterbeginnings.need_iron_tool"));
                 }
             }
         }
