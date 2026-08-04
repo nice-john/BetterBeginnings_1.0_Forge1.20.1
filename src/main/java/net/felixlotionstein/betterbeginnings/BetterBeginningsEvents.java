@@ -21,6 +21,10 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 @EventBusSubscriber(modid = BetterBeginnings.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class BetterBeginningsEvents {
 
+    private static final String MSG_NEED_HATCHET = "message.betterbeginnings.need_hatchet";
+    private static final String MSG_NEED_COPPER = "message.betterbeginnings.need_copper_tool";
+    private static final String MSG_NEED_IRON = "message.betterbeginnings.need_iron_tool";
+
     @SubscribeEvent
     public static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
         BlockState state = event.getState();
@@ -51,36 +55,23 @@ public class BetterBeginningsEvents {
         Level world = (Level) event.getLevel();
         Player player = event.getPlayer();
 
-        if (state.is(BlockTags.LOGS)) {
-            if (!(tool.getItem() instanceof AxeItem)) {
-                world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                event.setCanceled(true);
-
-                if (Config.SEND_MESSAGES.get()) {
-                    player.sendSystemMessage(Component.literal("You need at least a stone hatchet to chop wood!"));
-                }
-            }
+        if (state.is(BlockTags.LOGS) && !(tool.getItem() instanceof AxeItem)) {
+            denyBreak(event, player, MSG_NEED_HATCHET);
+            return;
         }
-        if (state.is(Blocks.STONE) || state.is(Blocks.IRON_ORE)) {
-            if (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE)) {
-                world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                event.setCanceled(true);
 
-                if (Config.SEND_MESSAGES.get()) {
-                    player.sendSystemMessage(Component.literal("You need a copper tool to mine this!"));
-                }
-            }
+        if ((state.is(Blocks.STONE) || state.is(Blocks.IRON_ORE))
+                && (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE))) {
+            denyBreak(event, player, MSG_NEED_COPPER);
+            return;
         }
-        if (state.is(Blocks.COAL_ORE)) {
-            if (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE) || tool.is(ModItems.COPPER_PICKAXE.get())) {
-                world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                event.setCanceled(true);
 
-                if (Config.SEND_MESSAGES.get()) {
-                    player.sendSystemMessage(Component.literal("You need an iron tool to mine this!"));
-                }
-            }
+        if (state.is(Blocks.COAL_ORE)
+                && (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE) || tool.is(ModItems.COPPER_PICKAXE.get()))) {
+            denyBreak(event, player, MSG_NEED_IRON);
+            return;
         }
+
         if (state.is(BlockTags.LEAVES)) {
             int count = world.random.nextInt(3);
 
@@ -88,6 +79,14 @@ public class BetterBeginningsEvents {
                 ItemStack drop = new ItemStack(Items.STICK, 1);
                 Block.popResource(world, pos, drop);
             }
+        }
+    }
+
+    private static void denyBreak(BlockEvent.BreakEvent event, Player player, String translationKey) {
+        event.setCanceled(true);
+
+        if (Config.SEND_MESSAGES.get()) {
+            player.displayClientMessage(Component.translatable(translationKey), true);
         }
     }
 }
