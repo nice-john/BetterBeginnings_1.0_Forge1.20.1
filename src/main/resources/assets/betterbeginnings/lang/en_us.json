@@ -1,11 +1,14 @@
 {
-  "item.betterbeginnings.rock": "Rock",
   "block.betterbeginnings.rock_block": "Rock",
+  "item.betterbeginnings.rock_block": "Rock",
   "item.betterbeginnings.stone_hatchet": "Stone Hatchet",
   "item.betterbeginnings.copper_axe": "Copper Axe",
   "item.betterbeginnings.copper_pickaxe": "Copper Pickaxe",
   "item.betterbeginnings.copper_shovel": "Copper Shovel",
   "item.betterbeginnings.copper_sword": "Copper Sword",
   "item.betterbeginnings.copper_hoe": "Copper Hoe",
-  "item.betterbeginnings.firestarter": "Firestarter"
+  "item.betterbeginnings.firestarter": "Firestarter",
+  "message.betterbeginnings.need_hatchet": "You need at least a stone hatchet to chop wood!",
+  "message.betterbeginnings.need_copper_tool": "You need a copper tool to mine this!",
+  "message.betterbeginnings.need_iron_tool": "You need an iron tool to mine this!"
 }
