@@ -19,7 +19,7 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BetterBeginnings.MODID);
 
     public static final RegistryObject<Item> STONE_HATCHET = ITEMS.register("stone_hatchet",
-            () -> new AxeItem(Tiers.WOOD, 3.0F, -2.2F, new Item.Properties()));  // No change needed
+            () -> new AxeItem(Tiers.STONE, 2.0F, -2.2F, new Item.Properties()));
 
     public static final RegistryObject<Item> COPPER_AXE = ITEMS.register("copper_axe",
             () -> new AxeItem(ModToolTiers.COPPER, 4.5F, -2.9F, new Item.Properties()));  // No change needed
