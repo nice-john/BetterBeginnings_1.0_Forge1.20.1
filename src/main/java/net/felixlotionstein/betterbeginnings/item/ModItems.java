@@ -14,7 +14,7 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 
 public class ModItems {
-    public static final Item STONE_HATCHET = new AxeItem(Tiers.WOOD, 3.0F, -2.2F, new Item.Properties()) {};
+    public static final Item STONE_HATCHET = new AxeItem(Tiers.STONE, 2.0F, -2.2F, new Item.Properties()) {};
 
     public static final Item COPPER_AXE = new AxeItem(ModToolTiers.COPPER, 4.5F, -2.9F, new Item.Properties()) {};
 
