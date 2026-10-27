@@ -18,12 +18,12 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = BetterBeginnings.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class BetterBeginningsEvents {
 
-    // Visual resistance: the wrong tool chips away slowly before the break is refused.
+    // A below-tier tool can't harvest the block: it breaks ~3x slower and drops nothing.
+    // Vanilla already does this for stone and ores; this extends it to logs.
     @SubscribeEvent
-    public static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
-        BlockState state = event.getState();
-        if (ToolGating.isBlocked(event.getEntity(), state)) {
-            event.setNewSpeed(state.is(BlockTags.LOGS) ? 0.2F : 0.4F);
+    public static void onHarvestCheck(PlayerEvent.HarvestCheck event) {
+        if (ToolGating.lacksRequiredTool(event.getEntity(), event.getTargetBlock())) {
+            event.setCanHarvest(false);
         }
     }
 
@@ -32,9 +32,8 @@ public class BetterBeginningsEvents {
         BlockState state = event.getState();
         Player player = event.getPlayer();
 
-        if (ToolGating.isBlocked(player, state)) {
-            // Canceling leaves the block in place and drops nothing.
-            event.setCanceled(true);
+        // The block still breaks (no drops); just tell the player why.
+        if (ToolGating.lacksRequiredTool(player, state)) {
             if (Config.SEND_MESSAGES.get()) {
                 player.sendSystemMessage(Component.literal(ToolGating.requirementMessage(state)));
             }
