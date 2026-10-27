@@ -11,7 +11,8 @@
   "environment": "*",
   "entrypoints": {
     "main": ["net.felixlotionstein.betterbeginnings.BetterBeginnings"],
-    "client": ["net.felixlotionstein.betterbeginnings.client.BetterBeginningsClient"]
+    "client": ["net.felixlotionstein.betterbeginnings.client.BetterBeginningsClient"],
+    "jade": ["net.felixlotionstein.betterbeginnings.compat.jade.BetterBeginningsJadePlugin"]
   },
   "mixins": [
     "betterbeginnings.mixins.json"

@@ -34,10 +34,18 @@ loom {
 }
 
 repositories {
+    // Modrinth maven, for the optional Jade compile-only dependency
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+        content { includeGroup 'maven.modrinth' }
+    }
     // Loom adds Fabric/Mojang/Maven Central automatically
 }
 
 dependencies {
+    // Jade is optional: compat/jade only loads when it's installed
+    modCompileOnly "maven.modrinth:jade:${project.jade_version}"
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
