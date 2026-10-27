@@ -19,8 +19,8 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, BetterBeginnings.MODID);
 
     public static final DeferredHolder<Item, Item> STONE_HATCHET = ITEMS.register("stone_hatchet",
-            () -> new AxeItem(Tiers.WOOD,
-                    new Item.Properties().attributes(AxeItem.createAttributes(Tiers.WOOD, 3.0F, -2.2F))));
+            () -> new AxeItem(Tiers.STONE,
+                    new Item.Properties().attributes(AxeItem.createAttributes(Tiers.STONE, 2.0F, -2.2F))));
 
     public static final DeferredHolder<Item, Item> COPPER_AXE = ITEMS.register("copper_axe",
             () -> new AxeItem(ModToolTiers.COPPER,
