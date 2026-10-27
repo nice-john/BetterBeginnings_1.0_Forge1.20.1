@@ -10,5 +10,6 @@
   "item.betterbeginnings.firestarter": "Firestarter",
   "message.betterbeginnings.need_hatchet": "You need at least a stone hatchet to chop wood!",
   "message.betterbeginnings.need_copper_tool": "You need a copper tool to mine this!",
-  "message.betterbeginnings.need_iron_tool": "You need an iron tool to mine this!"
+  "message.betterbeginnings.need_iron_tool": "You need an iron tool to mine this!",
+  "message.betterbeginnings.need_better_tool": "You need a better tool to mine this!"
 }
