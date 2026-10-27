@@ -1,0 +1,14 @@
+{
+  "block.betterbeginnings.rock_block": "Kamień",
+  "item.betterbeginnings.rock_block": "Kamień",
+  "item.betterbeginnings.stone_hatchet": "Kamienny toporek",
+  "item.betterbeginnings.copper_axe": "Miedziana siekiera",
+  "item.betterbeginnings.copper_pickaxe": "Miedziany kilof",
+  "item.betterbeginnings.copper_shovel": "Miedziana łopata",
+  "item.betterbeginnings.copper_sword": "Miedziany miecz",
+  "item.betterbeginnings.copper_hoe": "Miedziana motyka",
+  "item.betterbeginnings.firestarter": "Rozpałka",
+  "message.betterbeginnings.need_hatchet": "Potrzebujesz co najmniej kamiennego toporka, aby ścinać drewno!",
+  "message.betterbeginnings.need_copper_tool": "Potrzebujesz miedzianego narzędzia, aby wydobyć ten blok!",
+  "message.betterbeginnings.need_iron_tool": "Potrzebujesz żelaznego narzędzia, aby wydobyć ten blok!"
+}

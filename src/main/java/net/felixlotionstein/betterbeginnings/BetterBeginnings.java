@@ -9,7 +9,6 @@ import net.felixlotionstein.betterbeginnings.block.ModBlocks;
 import net.felixlotionstein.betterbeginnings.item.ModItems;
 import net.felixlotionstein.betterbeginnings.util.ToolGating;
 import net.felixlotionstein.betterbeginnings.worldgen.ModBiomeModifications;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
@@ -72,7 +71,7 @@ public class BetterBeginnings implements ModInitializer {
         // The block still breaks (no drops); just tell the player why.
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {
             if (Config.SEND_MESSAGES && ToolGating.lacksRequiredTool(player, state)) {
-                player.sendSystemMessage(Component.literal(ToolGating.requirementMessage(state)));
+                player.sendSystemMessage(ToolGating.requirementMessage(state));
             }
             return true;
         });

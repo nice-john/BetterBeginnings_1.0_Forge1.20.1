@@ -1,5 +1,6 @@
 package net.felixlotionstein.betterbeginnings.util;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
@@ -14,15 +15,16 @@ public final class ToolGating {
     private ToolGating() {}
 
     public static boolean lacksRequiredTool(Player player, BlockState state) {
-        return !player.isCreative()
+        // instabuild covers creative and creative-like modes from other mods.
+        return !player.getAbilities().instabuild
                 && state.is(ModTags.Blocks.REQUIRES_CORRECT_TOOL)
                 && !player.getMainHandItem().isCorrectToolForDrops(state);
     }
 
-    public static String requirementMessage(BlockState state) {
-        if (state.is(BlockTags.LOGS)) return "You need at least a stone hatchet to chop wood!";
-        if (state.is(BlockTags.NEEDS_IRON_TOOL)) return "You need an iron tool to mine this!";
-        if (state.is(ModTags.Blocks.NEEDS_COPPER_TOOL)) return "You need a copper tool to mine this!";
-        return "You need a better tool to mine this!";
+    public static Component requirementMessage(BlockState state) {
+        if (state.is(BlockTags.LOGS)) return Component.translatable("message.betterbeginnings.need_hatchet");
+        if (state.is(BlockTags.NEEDS_IRON_TOOL)) return Component.translatable("message.betterbeginnings.need_iron_tool");
+        if (state.is(ModTags.Blocks.NEEDS_COPPER_TOOL)) return Component.translatable("message.betterbeginnings.need_copper_tool");
+        return Component.translatable("message.betterbeginnings.need_better_tool");
     }
 }
