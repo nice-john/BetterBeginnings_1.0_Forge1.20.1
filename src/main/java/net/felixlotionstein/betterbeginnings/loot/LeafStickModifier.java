@@ -3,6 +3,7 @@ package net.felixlotionstein.betterbeginnings.loot;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -13,6 +14,8 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
 
+import java.util.Optional;
+
 /**
  * Adds a stick to the drops of any #minecraft:leaves block. It runs as part of loot
  * generation, so nothing drops in creative. The chance is set in
@@ -22,13 +25,13 @@ public class LeafStickModifier extends LootModifier {
     public static final MapCodec<LeafStickModifier> CODEC =
             RecordCodecBuilder.mapCodec(inst -> codecStart(inst).apply(inst, LeafStickModifier::new));
 
-    public LeafStickModifier(LootItemCondition[] conditions) {
-        super(conditions);
+    public LeafStickModifier(Optional<Holder<LootItemCondition>> condition, int priority) {
+        super(condition, priority);
     }
 
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-        BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
+        BlockState state = context.getOptional(LootContextParams.BLOCK_STATE);
         if (state != null && state.is(BlockTags.LEAVES)) {
             generatedLoot.add(new ItemStack(Items.STICK));
         }

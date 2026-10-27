@@ -6,15 +6,10 @@
     "I"
   ],
   "key": {
-    "S": {
-      "item": "betterbeginnings:rock_block"
-    },
-    "I": {
-      "item": "minecraft:stick"
-    }
+    "S": "betterbeginnings:rock_block",
+    "I": "minecraft:stick"
   },
   "result": {
-    "id": "minecraft:stone_sword",
-    "count": 1
+    "id": "minecraft:stone_sword"
   }
 }

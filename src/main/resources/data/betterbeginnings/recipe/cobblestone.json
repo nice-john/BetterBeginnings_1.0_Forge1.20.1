@@ -5,12 +5,9 @@
     "SS"
   ],
   "key": {
-    "S": {
-      "item": "betterbeginnings:rock_block"
-    }
+    "S": "betterbeginnings:rock_block"
   },
   "result": {
-    "id": "minecraft:cobblestone",
-    "count": 1
+    "id": "minecraft:cobblestone"
   }
 }
