@@ -7,15 +7,12 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.felixlotionstein.betterbeginnings.block.ModBlocks;
 import net.felixlotionstein.betterbeginnings.item.ModItems;
+import net.felixlotionstein.betterbeginnings.util.ToolGating;
 import net.felixlotionstein.betterbeginnings.worldgen.ModBiomeModifications;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
@@ -73,33 +70,12 @@ public class BetterBeginnings implements ModInitializer {
 
     private void registerBlockBreakHandler() {
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {
-            ItemStack tool = player.getMainHandItem();
-
-            // Wooden axes are AxeItem but should not be allowed — require at least stone hatchet
-            if (state.is(BlockTags.LOGS) && (!(tool.getItem() instanceof AxeItem) || tool.is(Items.WOODEN_AXE))) {
-                world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                if (Config.SEND_MESSAGES) {
-                    player.sendSystemMessage(Component.literal("You need at least a stone hatchet to chop wood!"));
-                }
-                return false;
+            if (!ToolGating.isBlocked(player, state)) return true;
+            // Returning false leaves the block in place and drops nothing.
+            if (Config.SEND_MESSAGES) {
+                player.sendSystemMessage(Component.literal(ToolGating.requirementMessage(state)));
             }
-            if ((state.is(BlockTags.BASE_STONE_OVERWORLD) || state.is(Blocks.IRON_ORE))
-                    && (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE))) {
-                world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                if (Config.SEND_MESSAGES) {
-                    player.sendSystemMessage(Component.literal("You need a copper tool to mine this!"));
-                }
-                return false;
-            }
-            if (state.is(Blocks.COAL_ORE)
-                    && (tool.is(Items.STONE_PICKAXE) || tool.is(Items.WOODEN_PICKAXE) || tool.is(ModItems.COPPER_PICKAXE))) {
-                world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                if (Config.SEND_MESSAGES) {
-                    player.sendSystemMessage(Component.literal("You need an iron tool to mine this!"));
-                }
-                return false;
-            }
-            return true;
+            return false;
         });
     }
 }
