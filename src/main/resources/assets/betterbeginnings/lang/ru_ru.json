@@ -1,0 +1,14 @@
+{
+  "block.betterbeginnings.rock_block": "Камень",
+  "item.betterbeginnings.rock_block": "Камень",
+  "item.betterbeginnings.stone_hatchet": "Каменный топорик",
+  "item.betterbeginnings.copper_axe": "Медный топор",
+  "item.betterbeginnings.copper_pickaxe": "Медная кирка",
+  "item.betterbeginnings.copper_shovel": "Медная лопата",
+  "item.betterbeginnings.copper_sword": "Медный меч",
+  "item.betterbeginnings.copper_hoe": "Медная мотыга",
+  "item.betterbeginnings.firestarter": "Разжигатель",
+  "message.betterbeginnings.need_hatchet": "Нужен хотя бы каменный топорик, чтобы рубить дерево!",
+  "message.betterbeginnings.need_copper_tool": "Для добычи нужен медный инструмент!",
+  "message.betterbeginnings.need_iron_tool": "Для добычи нужен железный инструмент!"
+}

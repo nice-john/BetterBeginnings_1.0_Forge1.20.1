@@ -3,6 +3,7 @@ package net.felixlotionstein.betterbeginnings;
 import com.mojang.logging.LogUtils;
 import net.felixlotionstein.betterbeginnings.block.ModBlocks;
 import net.felixlotionstein.betterbeginnings.item.ModItems;
+import net.felixlotionstein.betterbeginnings.loot.ModLootModifiers;
 import net.felixlotionstein.betterbeginnings.worldgen.ModFeatures;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -36,6 +37,7 @@ public class BetterBeginnings
         ModBlocks.register(modEventBus);
         ModItems.register((modEventBus));
         ModFeatures.register(modEventBus);
+        ModLootModifiers.register(modEventBus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
 
         modEventBus.addListener(this::commonSetup);
