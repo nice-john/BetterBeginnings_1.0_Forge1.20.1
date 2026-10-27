@@ -1,0 +1,14 @@
+{
+  "block.betterbeginnings.rock_block": "Caillou",
+  "item.betterbeginnings.rock_block": "Caillou",
+  "item.betterbeginnings.stone_hatchet": "Hachette en pierre",
+  "item.betterbeginnings.copper_axe": "Hache en cuivre",
+  "item.betterbeginnings.copper_pickaxe": "Pioche en cuivre",
+  "item.betterbeginnings.copper_shovel": "Pelle en cuivre",
+  "item.betterbeginnings.copper_sword": "Épée en cuivre",
+  "item.betterbeginnings.copper_hoe": "Houe en cuivre",
+  "item.betterbeginnings.firestarter": "Allume-feu",
+  "message.betterbeginnings.need_hatchet": "Il vous faut au moins une hachette en pierre pour couper du bois !",
+  "message.betterbeginnings.need_copper_tool": "Il vous faut un outil en cuivre pour extraire ce bloc !",
+  "message.betterbeginnings.need_iron_tool": "Il vous faut un outil en fer pour extraire ce bloc !"
+}

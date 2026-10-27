@@ -1,0 +1,14 @@
+{
+  "block.betterbeginnings.rock_block": "Roca",
+  "item.betterbeginnings.rock_block": "Roca",
+  "item.betterbeginnings.stone_hatchet": "Hachuela de piedra",
+  "item.betterbeginnings.copper_axe": "Hacha de cobre",
+  "item.betterbeginnings.copper_pickaxe": "Pico de cobre",
+  "item.betterbeginnings.copper_shovel": "Pala de cobre",
+  "item.betterbeginnings.copper_sword": "Espada de cobre",
+  "item.betterbeginnings.copper_hoe": "Azada de cobre",
+  "item.betterbeginnings.firestarter": "Encendedor",
+  "message.betterbeginnings.need_hatchet": "¡Necesitas al menos una hachuela de piedra para cortar madera!",
+  "message.betterbeginnings.need_copper_tool": "¡Necesitas una herramienta de cobre para extraer este bloque!",
+  "message.betterbeginnings.need_iron_tool": "¡Necesitas una herramienta de hierro para extraer este bloque!"
+}
