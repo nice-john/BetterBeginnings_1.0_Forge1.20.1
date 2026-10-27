@@ -69,13 +69,12 @@ public class BetterBeginnings implements ModInitializer {
     }
 
     private void registerBlockBreakHandler() {
+        // The block still breaks (no drops); just tell the player why.
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {
-            if (!ToolGating.isBlocked(player, state)) return true;
-            // Returning false leaves the block in place and drops nothing.
-            if (Config.SEND_MESSAGES) {
+            if (Config.SEND_MESSAGES && ToolGating.lacksRequiredTool(player, state)) {
                 player.sendSystemMessage(Component.literal(ToolGating.requirementMessage(state)));
             }
-            return false;
+            return true;
         });
     }
 }

@@ -3,7 +3,7 @@
   "package": "net.felixlotionstein.betterbeginnings.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "PlayerDestroySpeedMixin"
+    "PlayerHarvestMixin"
   ],
   "injectors": {
     "defaultRequire": 1
