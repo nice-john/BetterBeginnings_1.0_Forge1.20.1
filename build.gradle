@@ -117,6 +117,12 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    // Modrinth maven, for the optional Jade compile-only dependency
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+        content { includeGroup 'maven.modrinth' }
+    }
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
 
@@ -128,6 +134,8 @@ repositories {
 }
 
 dependencies {
+    // Jade is optional: compat/jade only loads when it's installed
+    compileOnly fg.deobf("maven.modrinth:jade:${jade_version}")
     // Specify the version of Minecraft to use.
     // Any artifact can be supplied so long as it has a "userdev" classifier artifact and is a compatible patcher artifact.
     // The "userdev" classifier will be requested and setup by ForgeGradle.
