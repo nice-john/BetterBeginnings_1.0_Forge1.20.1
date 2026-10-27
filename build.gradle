@@ -1,7 +1,6 @@
 plugins {
-    id 'fabric-loom' version '1.7-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
     id 'maven-publish'
-    id 'java'
 }
 
 version = project.mod_version
@@ -12,19 +11,27 @@ base {
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
     withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 loom {
     splitEnvironmentSourceSets()
-
     mods {
         "${mod_id}" {
             sourceSet sourceSets.main
             sourceSet sourceSets.client
+        }
+    }
+    runs {
+        // Headless server that loads all data, runs game tests, then exits (no EULA needed)
+        gameTestServer {
+            server()
+            name = "Game Test Server"
+            vmArg "-Dfabric-api.gametest"
+            runDir "build/gametest"
         }
     }
 }
@@ -36,39 +43,38 @@ repositories {
         url = 'https://api.modrinth.com/maven'
         content { includeGroup 'maven.modrinth' }
     }
-    // Loom adds Fabric/Mojang/Maven Central automatically
 }
 
 dependencies {
-    // Jade is optional: compat/jade only loads when it's installed
-    modCompileOnly "maven.modrinth:jade:${project.jade_version}"
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    // Jade is optional: compat/jade only loads when it's installed
+    compileOnly "maven.modrinth:jade:${project.jade_version}"
 }
 
 processResources {
-    inputs.property "version", project.version
-    inputs.property "minecraft_version", project.minecraft_version
-    inputs.property "loader_version", project.loader_version
+    def version = project.version
+    def minecraftVersion = project.minecraft_version
+    def loaderVersion = project.loader_version
+    inputs.property "version", version
+    inputs.property "minecraft_version", minecraftVersion
+    inputs.property "loader_version", loaderVersion
     filteringCharset "UTF-8"
-
     filesMatching("fabric.mod.json") {
-        expand "version": project.version,
-                "minecraft_version": project.minecraft_version,
-                "loader_version": project.loader_version
+        expand "version": version, "minecraft_version": minecraftVersion, "loader_version": loaderVersion
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
-    it.options.release = 21
+    it.options.release = 25
 }
 
 jar {
+    def archiveBase = project.base.archivesName.get()
     from("LICENSE") {
-        rename { "${it}_${project.base.archivesName.get()}" }
+        rename { "${it}_${archiveBase}" }
     }
 }
 

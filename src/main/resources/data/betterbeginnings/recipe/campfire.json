@@ -6,18 +6,11 @@
     "RSR"
   ],
   "key": {
-    "R": {
-      "item": "betterbeginnings:rock_block"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    },
-    "L": {
-      "tag": "minecraft:logs"
-    }
+    "R": "betterbeginnings:rock_block",
+    "S": "minecraft:stick",
+    "L": "#minecraft:logs"
   },
   "result": {
-    "id": "minecraft:campfire",
-    "count": 1
+    "id": "minecraft:campfire"
   }
 }

@@ -5,12 +5,9 @@
     " S"
   ],
   "key": {
-    "S": {
-      "item": "minecraft:stick"
-    }
+    "S": "minecraft:stick"
   },
   "result": {
-    "id": "betterbeginnings:firestarter",
-    "count": 1
+    "id": "betterbeginnings:firestarter"
   }
 }
