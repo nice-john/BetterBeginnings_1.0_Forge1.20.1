@@ -2,6 +2,9 @@ package net.felixlotionstein.betterbeginnings.compat.jade;
 
 import com.mojang.logging.LogUtils;
 import net.felixlotionstein.betterbeginnings.item.ModItems;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -26,14 +29,21 @@ public class BetterBeginningsJadePlugin implements IWailaPlugin {
     public void registerClient(IWailaClientRegistration registration) {
         // The tool lists aren't part of Jade's API, so a Jade update must never crash the game.
         try {
-            insertBefore("pickaxe", Items.IRON_PICKAXE, ModItems.COPPER_PICKAXE);
+            insertBefore("pickaxe", Items.IRON_PICKAXE, copperTool("pickaxe", ModItems.COPPER_PICKAXE));
             insertBefore("axe", Items.STONE_AXE, ModItems.STONE_HATCHET);
-            insertBefore("axe", Items.IRON_AXE, ModItems.COPPER_AXE);
-            insertBefore("shovel", Items.IRON_SHOVEL, ModItems.COPPER_SHOVEL);
-            insertBefore("hoe", Items.IRON_HOE, ModItems.COPPER_HOE);
+            insertBefore("axe", Items.IRON_AXE, copperTool("axe", ModItems.COPPER_AXE));
+            insertBefore("shovel", Items.IRON_SHOVEL, copperTool("shovel", ModItems.COPPER_SHOVEL));
+            insertBefore("hoe", Items.IRON_HOE, copperTool("hoe", ModItems.COPPER_HOE));
         } catch (RuntimeException | LinkageError e) {
             LOGGER.warn("Couldn't add Better Beginnings tools to Jade's harvest tool hints", e);
         }
+    }
+
+    // With Overgeared installed its copper tools replace ours, so show those instead.
+    private static Item copperTool(String type, Item ours) {
+        if (!FabricLoader.getInstance().isModLoaded("overgeared")) return ours;
+        Item theirs = BuiltInRegistries.ITEM.get(new ResourceLocation("overgeared", "copper_" + type));
+        return theirs == Items.AIR ? ours : theirs;
     }
 
     private static void insertBefore(String handlerName, Item vanillaTool, Item ourTool) {
