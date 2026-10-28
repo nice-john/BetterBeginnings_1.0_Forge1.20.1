@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "overgeared"
+    }
+  ],
+  "type": "overgeared:rock_knapping",
+  "pattern": [
+    "xx",
+    " x"
+  ],
+  "ingredient": {
+    "item": "betterbeginnings:rock_block"
+  },
+  "result": {
+    "id": "overgeared:stone_axe_head",
+    "Count": 1
+  },
+  "show_notification": true
+}
