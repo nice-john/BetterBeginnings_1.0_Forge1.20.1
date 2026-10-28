@@ -2,12 +2,37 @@
   "replace": false,
   "values": [
     "betterbeginnings:rock_block",
-    { "id": "twigs:pebble", "required": false },
-    { "id": "spelunkers_charm:basalt_rock", "required": false },
-    { "id": "spelunkers_charm:rock", "required": false },
-    { "id": "spelunkery:basalt_pebble", "required": false },
-    { "id": "spelunkery:deepslate_pebble", "required": false },
-    { "id": "botania:pebble", "required": false },
-    { "id": "spelunkery:stone_pebble", "required": false }
+    {
+      "id": "twigs:pebble",
+      "required": false
+    },
+    {
+      "id": "spelunkers_charm:basalt_rock",
+      "required": false
+    },
+    {
+      "id": "spelunkers_charm:rock",
+      "required": false
+    },
+    {
+      "id": "spelunkery:basalt_pebble",
+      "required": false
+    },
+    {
+      "id": "spelunkery:deepslate_pebble",
+      "required": false
+    },
+    {
+      "id": "botania:pebble",
+      "required": false
+    },
+    {
+      "id": "spelunkery:stone_pebble",
+      "required": false
+    },
+    {
+      "id": "overgeared:knappable_rock",
+      "required": false
+    }
   ]
 }

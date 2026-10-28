@@ -1,0 +1,19 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "overgeared"
+    }
+  ],
+  "type": "overgeared:rock_knapping",
+  "pattern": [
+    "xxx"
+  ],
+  "ingredient": {
+    "item": "betterbeginnings:rock_block"
+  },
+  "result": {
+    "item": "overgeared:stone_pickaxe_head"
+  },
+  "show_notification": true
+}
