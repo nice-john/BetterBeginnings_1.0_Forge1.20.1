@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "overgeared:copper_pickaxe", "required": false },
+    { "id": "overgeared:copper_axe", "required": false },
+    { "id": "overgeared:copper_shovel", "required": false },
+    { "id": "overgeared:copper_hoe", "required": false }
+  ]
+}

@@ -9,6 +9,9 @@ import net.minecraft.world.level.block.Block;
 
 public class ModTags {
     public static class Items {
+        /** Other mods' copper tools, which count as our copper tier. */
+        public static final TagKey<Item> COPPER_TIER_TOOLS = tag("copper_tier_tools");
+
         private static TagKey<Item> tag(String name) {
             return TagKey.create(Registries.ITEM, new ResourceLocation(BetterBeginnings.MODID, name));
         }
