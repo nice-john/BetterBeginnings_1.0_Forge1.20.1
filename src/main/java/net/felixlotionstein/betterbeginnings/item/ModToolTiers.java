@@ -15,9 +15,12 @@ import java.util.List;
 public class ModToolTiers {
     // Sorted after stone and before iron, so stone tools can't harvest #needs_copper_tool
     // blocks and copper tools can't harvest #needs_iron_tool blocks.
+    // Also sorted before Overgeared's copper tier, so its copper tools can mine our copper
+    // blocks (stone). Forge ignores the name when Overgeared isn't installed.
     public static final Tier COPPER = TierSortingRegistry.registerTier(
             new ForgeTier(1, 190, 5f, 1.5f, 10,
                     ModTags.Blocks.NEEDS_COPPER_TOOL, () -> Ingredient.of(Items.COPPER_INGOT)),
-            new ResourceLocation(BetterBeginnings.MODID, "copper"), List.of(Tiers.STONE), List.of(Tiers.IRON));
+            new ResourceLocation(BetterBeginnings.MODID, "copper"), List.of(Tiers.STONE),
+            List.of(Tiers.IRON, new ResourceLocation("overgeared", "copper_ingot")));
 
 }
